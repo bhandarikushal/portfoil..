@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kushal Bhandari | IT Developer & Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* HOME PAGE SPECIFIC */
+.hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; padding: 7rem 2rem 4rem; }
+.hero-bg-anim { position: absolute; inset: 0; overflow: hidden; }
+.orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.25; animation: orbFloat 8s ease infinite; }
+.orb1 { width: 500px; height: 500px; background: var(--accent1); top: -100px; left: -100px; animation-delay: 0s; }
+.orb2 { width: 400px; height: 400px; background: var(--accent2); bottom: -80px; right: -80px; animation-delay: 3s; }
+.orb3 { width: 300px; height: 300px; background: var(--accent3); top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 5s; }
+@keyframes orbFloat { 0%,100%{transform:scale(1) translate(0,0)} 33%{transform:scale(1.08) translate(20px,-15px)} 66%{transform:scale(0.95) translate(-15px,20px)} }
+.grid-bg { position: absolute; inset: 0; background-image: linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--grid-color) 1px, transparent 1px); background-size: 50px 50px; }
+.hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 5rem; align-items: center; position: relative; z-index: 2; }
+.badge-pill { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.45rem 1.1rem; border-radius: 100px; border: 1.5px solid var(--accent1); background: var(--accent1-bg); color: var(--accent1); font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.8rem; }
+.badge-pill .dot { width: 7px; height: 7px; background: var(--accent1); border-radius: 50%; animation: blink 1.4s ease infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+.hero-name { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 5rem); font-weight: 900; line-height: 1.05; margin-bottom: 0.5rem; color: var(--text-primary); }
+.hero-name em { font-style: italic; background: linear-gradient(135deg, var(--accent1), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.slogan { font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: var(--accent1); letter-spacing: 1px; margin-bottom: 1rem; }
+.slogan::before { content: '> '; color: var(--accent2); }
+.hero-typed { font-family: 'Syne', sans-serif; font-size: 1.25rem; color: var(--text-muted); min-height: 2rem; margin-bottom: 1.5rem; }
+.hero-typed .cursor-blink { animation: blink 0.8s step-end infinite; color: var(--accent1); }
+.hero-desc { font-size: 1rem; color: var(--text-muted); line-height: 1.9; max-width: 520px; margin-bottom: 2.5rem; }
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 2rem; border-radius: 10px; font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; text-decoration: none; transition: all 0.3s; border: 2px solid transparent; }
+.btn-fill { background: linear-gradient(135deg, var(--accent1), var(--accent2)); color: #fff; box-shadow: 0 8px 30px var(--accent1-glow); }
+.btn-fill:hover { transform: translateY(-3px); box-shadow: 0 15px 40px var(--accent1-glow); }
+.btn-ghost { background: transparent; border-color: var(--accent1); color: var(--accent1); }
+.btn-ghost:hover { background: var(--accent1-bg); transform: translateY(-3px); }
+.hero-photo-wrap { position: relative; }
+.photo-ring-outer { position: relative; width: 100%; aspect-ratio: 0.82; border-radius: 24px; overflow: hidden; border: 2.5px solid var(--border); box-shadow: 0 30px 80px var(--shadow), 0 0 60px var(--accent1-glow); }
+.slideshow-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity 1s ease; }
+.slideshow-img.active { opacity: 1; }
+.slide-nav { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 5; }
+.slide-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.35); cursor: pointer; transition: all 0.3s; }
+.slide-dot.on { background: var(--accent1); width: 22px; border-radius: 4px; box-shadow: 0 0 8px var(--accent1); }
+.float-chip { position: absolute; background: var(--card-bg); border: 1.5px solid var(--border); border-radius: 14px; padding: 0.8rem 1.1rem; box-shadow: 0 10px 40px var(--shadow); animation: chipFloat 3s ease infinite; }
+.chip1 { top: -16px; left: -22px; animation-delay: 0s; }
+.chip2 { bottom: -16px; right: -22px; animation-delay: 1.5s; }
+.chip3 { bottom: -16px; left: -22px; animation-delay: 0.8s; }
+.chip-clock .chip-val { font-variant-numeric: tabular-nums; }
+@keyframes chipFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+.chip-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+.chip-val { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 700; color: var(--accent1); }
+
+/* STATS ROW */
+.stats-section { background: var(--card-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2.5rem 2rem; }
+.stats-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+.stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900; background: linear-gradient(135deg, var(--accent1), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-label { font-size: 0.85rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 0.2rem; }
+
+/* SERVICES PREVIEW */
+.services-preview { padding: 6rem 2rem; }
+.services-inner { max-width: 1100px; margin: 0 auto; }
+.section-intro { margin-bottom: 3.5rem; }
+.sec-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--accent1); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.6rem; }
+.sec-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 900; color: var(--text-primary); margin-bottom: 0.8rem; }
+.sec-line { width: 60px; height: 3px; background: linear-gradient(90deg, var(--accent1), var(--accent2)); border-radius: 2px; }
+.services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+.svc-card { background: var(--card-bg); border: 1.5px solid var(--border); border-radius: 20px; padding: 2rem; transition: all 0.35s; position: relative; overflow: hidden; }
+.svc-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--accent1-bg), transparent); opacity: 0; transition: opacity 0.35s; }
+.svc-card:hover { border-color: var(--accent1); transform: translateY(-6px); box-shadow: 0 20px 50px var(--accent1-glow); }
+.svc-card:hover::before { opacity: 1; }
+.svc-icon { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
+.svc-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem; }
+.svc-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+.svc-tag { display: inline-block; margin-top: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--accent1); border: 1px solid var(--accent1); padding: 0.2rem 0.7rem; border-radius: 100px; }
+
+/* RECENT PROJECTS PREVIEW */
+.projects-preview { padding: 2rem 2rem 6rem; background: var(--alt-bg); }
+.projects-inner { max-width: 1100px; margin: 0 auto; }
+.proj-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+.proj-card { background: var(--card-bg); border: 1.5px solid var(--border); border-radius: 20px; overflow: hidden; transition: all 0.35s; }
+.proj-card:hover { transform: translateY(-6px); border-color: var(--accent1); box-shadow: 0 20px 50px var(--accent1-glow); }
+.proj-card-top { padding: 1.8rem; }
+.proj-year { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent2); letter-spacing: 2px; margin-bottom: 0.5rem; }
+.proj-title { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.6rem; }
+.proj-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+.proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0 1.8rem 1.5rem; }
+.proj-tag { font-size: 0.72rem; padding: 0.2rem 0.7rem; border-radius: 100px; background: var(--accent1-bg); color: var(--accent1); font-family: 'JetBrains Mono', monospace; }
+.view-all-wrap { text-align: center; margin-top: 2.5rem; }
+
+@media (max-width: 768px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-photo-wrap { max-width: 280px; margin: 0 auto; }
+  .stats-inner { grid-template-columns: repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-box"><div class="loader-photo-wrap"><div class="loader-photo-ring2" aria-hidden="true"></div><div class="loader-photo-ring" aria-hidden="true"></div><img src="photos/loader.jpg" alt="Kushal Bhandari with his bike" class="loader-photo"></div><div class="loader-name">Kushal <span class="ln-last">Bhandari</span><span class="loader-dot">.</span></div><div class="loader-slogan-wrap"><span class="loader-slogan">Turning Ideas Into Digital Reality</span></div><div class="loader-bar-wrap"><div class="loader-bar"></div></div><div class="loader-sub">Coding the future, pixel by pixel...</div><div class="ld"><span></span><span></span><span></span></div></div></div>
+<canvas id="particles"></canvas>
+<div class="cursor-dot" id="cDot"></div>
+<div class="cursor-ring" id="cRing"></div>
+<div id="settings-panel" class="settings-panel">
+  <div class="sp-header"><span><i class="fas fa-sliders-h"></i> Settings</span><button onclick="closeSettings()"><i class="fas fa-times"></i></button></div>
+  <div class="sp-section"><div class="sp-label">Theme</div><div class="theme-btns"><button class="t-btn active" id="darkBtn" onclick="setTheme('dark')"><i class="fas fa-moon"></i> Dark</button><button class="t-btn" id="lightBtn" onclick="setTheme('light')"><i class="fas fa-sun"></i> Light</button></div></div>
+  <div class="sp-section"><div class="sp-label">Accent Color</div><div class="color-picks"><button class="c-pick active" style="--c:#00f5ff" data-color="cyan" onclick="setColor('cyan',this)"></button><button class="c-pick" style="--c:#7b2fff" data-color="purple" onclick="setColor('purple',this)"></button><button class="c-pick" style="--c:#ff006e" data-color="pink" onclick="setColor('pink',this)"></button><button class="c-pick" style="--c:#00e676" data-color="green" onclick="setColor('green',this)"></button><button class="c-pick" style="--c:#ff9100" data-color="orange" onclick="setColor('orange',this)"></button></div></div>
+  <div class="sp-section"><div class="sp-label">Font Size</div><div class="zoom-row"><button class="zoom-btn" onclick="changeZoom(-10)"><i class="fas fa-search-minus"></i></button><span id="zoomVal">100%</span><button class="zoom-btn" onclick="changeZoom(10)"><i class="fas fa-search-plus"></i></button></div></div>
+</div>
+<div id="settings-overlay" class="sp-overlay" onclick="closeSettings()"></div>
+<nav id="nav"><div class="nav-inner"><a class="nav-logo" href="index.html"><span class="logo-k">Kushal</span><span class="logo-dot">.</span><span class="logo-slogan">IT Developer &amp; Designer</span></a><ul class="nav-links" id="navL"><li><a href="index.html" class="active">Home</a></li><li><a href="about.html">About</a></li><li><a href="family.html">Family</a></li><li><a href="skills.html">Skills</a></li><li><a href="projects.html">Projects</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="quiz.html">Quiz</a></li><li><a href="fun.html">Fun Zone</a></li><li><a href="cv.html">CV</a></li><li><a href="contact.html">Contact</a></li></ul><div class="nav-actions"><div class="nav-auth"><a href="login.html" class="nav-auth-btn nav-auth-login">Login</a><a href="signup.html" class="nav-auth-btn nav-auth-signup">Sign Up</a></div><button class="nav-icon-btn" onclick="openSettings()" title="Settings"><i class="fas fa-cog"></i></button><button class="hamburger" id="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div></nav>
+<div class="marquee-wrap"><div class="marquee-track" id="marqueeTrack"></div></div>
+
+<main>
+<section class="hero">
+  <div class="hero-bg-anim"><div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div></div>
+  <div class="grid-bg"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="badge-pill"><span class="dot"></span> Available for Projects</div>
+      <h1 class="hero-name">Hi, I'm<br><em>Kushal Bhandari</em></h1>
+      <div class="slogan">Turning Ideas into Digital Reality</div>
+      <div class="hero-typed"><span id="typedEl"></span><span class="cursor-blink">|</span></div>
+      <p class="hero-desc">A passionate Secondary Level Technical Stream Graduate (Computer Engineering) from Gulmi, Nepal — crafting web experiences, securing digital systems, and building the future one line of code at a time.</p>
+      <div class="hero-ctas">
+        <a href="projects.html" class="btn btn-fill"><i class="fas fa-rocket"></i> View Projects</a>
+        <a href="contact.html" class="btn btn-ghost"><i class="fas fa-envelope"></i> Hire Me</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="float-chip chip1"><div class="chip-label">Class</div><div class="chip-val">12 IT</div></div>
+      <div class="photo-ring-outer">
+        <img class="slideshow-img active" src="photos/img4.jpg" alt="Kushal">
+        <img class="slideshow-img" src="photos/img1.jpg" alt="Kushal">
+        <img class="slideshow-img" src="photos/img2.jpg" alt="Kushal">
+        <img class="slideshow-img" src="photos/img5.jpg" alt="Kushal">
+        <img class="slideshow-img" src="photos/temple-visit.jpg" alt="Kushal">
+        <img class="slideshow-img" src="photos/mountain-bridge.jpg" alt="Kushal">
+        <div class="slide-nav" id="slideNav"></div>
+      </div>
+      <div class="float-chip chip2"><div class="chip-label">Projects</div><div class="chip-val">10+</div></div>
+      <div class="float-chip chip3 chip-clock"><div class="chip-label">🇳🇵 Nepal Time</div><div class="chip-val" id="nepalClockVal">--:--</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="stats-inner">
+    <div class="reveal"><div class="stat-num">4+</div><div class="stat-label">Years in IT</div></div>
+    <div class="reveal"><div class="stat-num">10+</div><div class="stat-label">Projects Built</div></div>
+    <div class="reveal"><div class="stat-num">8+</div><div class="stat-label">Skills Mastered</div></div>
+    <div class="reveal"><div class="stat-num">3.60</div><div class="stat-label">Top GPA</div></div>
+  </div>
+</section>
+
+<section class="services-preview">
+  <div class="services-inner">
+    <div class="section-intro reveal"><div class="sec-tag">// What I Offer</div><h2 class="sec-title">IT Services</h2><div class="sec-line"></div></div>
+    <div class="services-grid">
+      <div class="svc-card reveal"><span class="svc-icon">🌐</span><div class="svc-name">Web Development</div><div class="svc-desc">Custom websites and web applications with modern design, responsive layout, and seamless user experience.</div><span class="svc-tag">HTML · CSS · JS</span></div>
+      <div class="svc-card reveal"><span class="svc-icon">🎨</span><div class="svc-name">Graphic Design</div><div class="svc-desc">Eye-catching digital posters, banners, social media graphics, and brand identity visuals.</div><span class="svc-tag">Design · Branding</span></div>
+      <div class="svc-card reveal"><span class="svc-icon">🔐</span><div class="svc-name">Cybersecurity Awareness</div><div class="svc-desc">Security audits, phishing awareness training, and social engineering education for individuals and businesses.</div><span class="svc-tag">Security · Ethical Hacking</span></div>
+      <div class="svc-card reveal"><span class="svc-icon">📱</span><div class="svc-name">Mobile App Development</div><div class="svc-desc">Android mobile applications built with Java, focused on performance, usability, and clean architecture.</div><span class="svc-tag">Java · Android</span></div>
+      <div class="svc-card reveal"><span class="svc-icon">🖧</span><div class="svc-name">Network Setup & Support</div><div class="svc-desc">LAN/WAN configuration, network troubleshooting, hardware setup, and IT support for small businesses.</div><span class="svc-tag">Networking · Support</span></div>
+      <div class="svc-card reveal"><span class="svc-icon">🗄️</span><div class="svc-name">Database Solutions</div><div class="svc-desc">Database design, management systems, and data-driven application backends for your business needs.</div><span class="svc-tag">SQL · Database Design</span></div>
+    </div>
+    <div class="view-all-wrap"><a href="services.html" class="btn btn-ghost">View All Services <i class="fas fa-arrow-right"></i></a></div>
+  </div>
+</section>
+
+<section class="projects-preview">
+  <div class="projects-inner">
+    <div class="section-intro reveal"><div class="sec-tag">// Recent Work</div><h2 class="sec-title">Featured Projects</h2><div class="sec-line"></div></div>
+    <div class="proj-cards">
+      <div class="proj-card reveal"><div class="proj-card-top"><div class="proj-year">2079 BS · Class 9T</div><div class="proj-title">🎨 Festive Graphic Designs</div><div class="proj-desc">Designed digital posters for Holi and Dashain using graphic tools. Developed skills in color theory, composition, and visual storytelling.</div></div><div class="proj-tags"><span class="proj-tag">Graphic Design</span><span class="proj-tag">Poster Art</span><span class="proj-tag">Branding</span></div></div>
+      <div class="proj-card reveal"><div class="proj-card-top"><div class="proj-year">2080 BS · Class 10T</div><div class="proj-title">🏨 Hotel Management System</div><div class="proj-desc">Full-stack hotel website with room booking, customer management, billing system and admin dashboard.</div></div><div class="proj-tags"><span class="proj-tag">HTML/CSS</span><span class="proj-tag">JavaScript</span><span class="proj-tag">Database</span></div></div>
+      <div class="proj-card reveal"><div class="proj-card-top"><div class="proj-year">2081 BS · Class 11T</div><div class="proj-title">🔐 Security Tools & Java Apps</div><div class="proj-desc">Explored social engineering tools, ethical phishing demonstrations, built a calculator and a full Android mobile app in Java.</div></div><div class="proj-tags"><span class="proj-tag">Java</span><span class="proj-tag">Android</span><span class="proj-tag">Cybersecurity</span></div></div>
+    </div>
+    <div class="view-all-wrap"><a href="projects.html" class="btn btn-fill">All Projects <i class="fas fa-arrow-right"></i></a></div>
+  </div>
+</section>
+</main>
+
+<footer id="footer"></footer>
+<div id="chatbot-root"></div>
+<script src="auth.js"></script>
+<script src="shared.js"></script>
+<script>
+initSlideshow();
+initTyped(['Web Developer 🌐','Graphic Designer 🎨','Cybersecurity Enthusiast 🔐','IT Student 💻','App Developer 📱','Network Engineer 🖧']);
+</script>
+</body>
+</html>

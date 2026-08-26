@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV | Kushal Bhandari</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+.cv-section{padding:5rem 2rem;}
+.cv-inner{max-width:1050px;margin:0 auto;}
+.cv-toolbar{display:flex;justify-content:flex-end;margin-bottom:1.5rem;}
+.cv-sheet{background:var(--card-bg);border:1.5px solid var(--border);border-radius:24px;overflow:hidden;box-shadow:0 30px 90px var(--shadow);}
+.cv-head{background:linear-gradient(150deg,var(--accent1) 0%,var(--accent2) 100%);padding:2.6rem 2.8rem;display:flex;align-items:center;gap:1.8rem;color:#fff;position:relative;overflow:hidden;}
+.cv-head::before{content:'';position:absolute;width:260px;height:260px;background:rgba(255,255,255,0.12);border-radius:50%;top:-100px;right:-80px;}
+.cv-head-photo{width:104px;height:104px;border-radius:50%;object-fit:cover;object-position:center 15%;border:3px solid rgba(255,255,255,0.8);box-shadow:0 15px 40px rgba(0,0,0,0.3);position:relative;z-index:1;flex-shrink:0;}
+.cv-head-text{position:relative;z-index:1;}
+.cv-head-name{font-family:'Playfair Display',serif;font-weight:900;font-size:2.1rem;line-height:1.1;}
+.cv-head-role{font-family:'JetBrains Mono',monospace;font-size:0.82rem;letter-spacing:1.5px;text-transform:uppercase;opacity:0.92;margin:0.5rem 0 0.9rem;}
+.cv-head-contacts{display:flex;flex-wrap:wrap;gap:0.4rem 1.3rem;font-size:0.82rem;}
+.cv-head-contacts span{display:flex;align-items:center;gap:0.4rem;opacity:0.95;}
+.cv-body{display:grid;grid-template-columns:1fr 1.7fr;}
+.cv-side{background:var(--alt-bg);border-right:1px solid var(--border);padding:2.4rem 2rem;}
+.cv-main{padding:2.4rem 2.6rem;}
+.cv-block{margin-bottom:2.2rem;}
+.cv-block:last-child{margin-bottom:0;}
+.cv-block-title{font-family:'Syne',sans-serif;font-weight:800;font-size:0.85rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent1);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;}
+.cv-block-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.cv-skill{margin-bottom:0.9rem;}
+.cv-skill-row{display:flex;justify-content:space-between;font-size:0.82rem;color:var(--text-primary);font-weight:700;margin-bottom:0.35rem;}
+.cv-skill-row span:last-child{color:var(--text-muted);font-weight:400;font-family:'JetBrains Mono',monospace;}
+.cv-skill-bar-bg{height:5px;background:var(--card-bg);border-radius:5px;overflow:hidden;}
+.cv-skill-bar{height:100%;background:linear-gradient(90deg,var(--accent1),var(--accent2));border-radius:5px;}
+.cv-tools{display:flex;flex-wrap:wrap;gap:0.5rem;}
+.cv-tool-badge{background:var(--card-bg);border:1px solid var(--border);border-radius:9px;padding:0.4rem 0.8rem;font-size:0.78rem;font-weight:700;color:var(--text-primary);}
+.cv-info-list{display:flex;flex-direction:column;gap:0.6rem;font-size:0.85rem;color:var(--text-muted);}
+.cv-info-list li{display:flex;gap:0.6rem;align-items:flex-start;}
+.cv-info-list i{color:var(--accent1);width:16px;margin-top:0.2rem;}
+.cv-para{font-size:0.9rem;color:var(--text-muted);line-height:1.85;}
+.cv-edu-item, .cv-job-item{position:relative;padding-left:1.2rem;border-left:2px solid var(--border);padding-bottom:1.4rem;}
+.cv-edu-item:last-child, .cv-job-item:last-child{padding-bottom:0;}
+.cv-edu-item::before, .cv-job-item::before{content:'';position:absolute;left:-6px;top:2px;width:10px;height:10px;border-radius:50%;background:var(--accent1);box-shadow:0 0 8px var(--accent1);}
+.cv-edu-yr{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent1);letter-spacing:1px;margin-bottom:0.25rem;}
+.cv-edu-title{font-family:'Syne',sans-serif;font-weight:800;font-size:0.98rem;color:var(--text-primary);margin-bottom:0.3rem;}
+.cv-edu-desc{font-size:0.85rem;color:var(--text-muted);line-height:1.7;}
+.cv-proj-item{margin-bottom:1.3rem;}
+.cv-proj-item:last-child{margin-bottom:0;}
+.cv-proj-top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;}
+.cv-proj-title{font-family:'Syne',sans-serif;font-weight:800;font-size:0.95rem;color:var(--text-primary);}
+.cv-proj-yr{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-muted);white-space:nowrap;}
+.cv-proj-desc{font-size:0.84rem;color:var(--text-muted);line-height:1.7;margin:0.3rem 0 0.5rem;}
+.cv-proj-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.cv-proj-tags span{font-family:'JetBrains Mono',monospace;font-size:0.68rem;background:var(--accent1-bg);color:var(--accent1);border:1px solid var(--accent1);padding:0.2rem 0.55rem;border-radius:6px;}
+.cv-svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;}
+.cv-svc-item{font-size:0.84rem;color:var(--text-muted);display:flex;align-items:center;gap:0.5rem;}
+.cv-svc-item i{color:var(--accent1);}
+@media(max-width:850px){.cv-body{grid-template-columns:1fr;}.cv-side{border-right:none;border-bottom:1px solid var(--border);}.cv-svc-grid{grid-template-columns:1fr;}}
+@media print{
+  #loader,#particles,.cursor-dot,.cursor-ring,#nav,.marquee-wrap,#footer,#chatbot-root,.cv-toolbar,.page-hero,.settings-panel,.sp-overlay{display:none !important;}
+  body{background:#fff !important;}
+  main{padding-top:0 !important;}
+  .cv-section{padding:0 !important;}
+  .cv-sheet{box-shadow:none !important;border:none !important;}
+}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-box"><div class="loader-photo-wrap"><div class="loader-photo-ring2" aria-hidden="true"></div><div class="loader-photo-ring" aria-hidden="true"></div><img src="photos/loader.jpg" alt="Kushal Bhandari with his bike" class="loader-photo"></div><div class="loader-name">Kushal <span class="ln-last">Bhandari</span><span class="loader-dot">.</span></div><div class="loader-slogan-wrap"><span class="loader-slogan">Turning Ideas Into Digital Reality</span></div><div class="loader-bar-wrap"><div class="loader-bar"></div></div><div class="loader-sub">Loading CV...</div><div class="ld"><span></span><span></span><span></span></div></div></div>
+<canvas id="particles"></canvas>
+<div class="cursor-dot" id="cDot"></div><div class="cursor-ring" id="cRing"></div>
+<div id="settings-panel" class="settings-panel"><div class="sp-header"><span><i class="fas fa-sliders-h"></i> Settings</span><button onclick="closeSettings()"><i class="fas fa-times"></i></button></div><div class="sp-section"><div class="sp-label">Theme</div><div class="theme-btns"><button class="t-btn active" id="darkBtn" onclick="setTheme('dark')"><i class="fas fa-moon"></i> Dark</button><button class="t-btn" id="lightBtn" onclick="setTheme('light')"><i class="fas fa-sun"></i> Light</button></div></div><div class="sp-section"><div class="sp-label">Accent Color</div><div class="color-picks"><button class="c-pick active" style="--c:#00f5ff" data-color="cyan" onclick="setColor('cyan',this)"></button><button class="c-pick" style="--c:#7b2fff" data-color="purple" onclick="setColor('purple',this)"></button><button class="c-pick" style="--c:#ff006e" data-color="pink" onclick="setColor('pink',this)"></button><button class="c-pick" style="--c:#00e676" data-color="green" onclick="setColor('green',this)"></button><button class="c-pick" style="--c:#ff9100" data-color="orange" onclick="setColor('orange',this)"></button></div></div><div class="sp-section"><div class="sp-label">Font Size</div><div class="zoom-row"><button class="zoom-btn" onclick="changeZoom(-10)"><i class="fas fa-search-minus"></i></button><span id="zoomVal">100%</span><button class="zoom-btn" onclick="changeZoom(10)"><i class="fas fa-search-plus"></i></button></div></div></div>
+<div id="settings-overlay" class="sp-overlay" onclick="closeSettings()"></div>
+<nav id="nav"><div class="nav-inner"><a class="nav-logo" href="index.html"><span class="logo-k">Kushal</span><span class="logo-dot">.</span><span class="logo-slogan">IT Developer &amp; Designer</span></a><ul class="nav-links" id="navL"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="family.html">Family</a></li><li><a href="skills.html">Skills</a></li><li><a href="projects.html">Projects</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="quiz.html">Quiz</a></li><li><a href="fun.html">Fun Zone</a></li><li><a href="cv.html" class="active">CV</a></li><li><a href="contact.html">Contact</a></li></ul><div class="nav-actions"><div class="nav-auth"><a href="login.html" class="nav-auth-btn nav-auth-login">Login</a><a href="signup.html" class="nav-auth-btn nav-auth-signup">Sign Up</a></div><button class="nav-icon-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button><button class="hamburger" id="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div></nav>
+<div class="marquee-wrap"><div class="marquee-track" id="marqueeTrack"></div></div>
+<main>
+<div class="page-hero"><div class="page-hero-inner"><div class="page-hero-tag">// Resume</div><h1 class="page-hero-title">My <em>CV</em></h1><p class="page-hero-desc">A structured look at my education, skills and projects — view it here or download a copy.</p><div class="page-hero-line"></div></div></div>
+
+<section class="cv-section"><div class="cv-inner">
+  <div class="cv-toolbar reveal"><button class="btn btn-fill" onclick="window.print()"><i class="fas fa-download"></i> Download / Print CV</button></div>
+
+  <div class="cv-sheet reveal">
+    <div class="cv-head">
+      <img class="cv-head-photo" src="photos/img4.jpg" alt="Kushal Bhandari">
+      <div class="cv-head-text">
+        <div class="cv-head-name">Kushal Bhandari</div>
+        <div class="cv-head-role">IT Developer &amp; Designer · Computer Engineering Student (Overseas)</div>
+        <div class="cv-head-contacts">
+          <span><i class="fas fa-phone"></i> 9769309214</span>
+          <span><i class="fas fa-envelope"></i> bhandarikushal290@gmail.com</span>
+          <span><i class="fas fa-location-dot"></i> Satyawati 6, Johang Khaireni, Gulmi</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-body">
+      <aside class="cv-side">
+        <div class="cv-block">
+          <div class="cv-block-title">Profile</div>
+          <ul class="cv-info-list">
+            <li><i class="fas fa-user"></i> Kushal Bhandari</li>
+            <li><i class="fas fa-graduation-cap"></i> +2 Passed — GPA 3.65</li>
+            <li><i class="fas fa-plane"></i> Computer Engineering — Overseas</li>
+            <li><i class="fas fa-earth-asia"></i> Nepali</li>
+            <li><i class="fas fa-location-dot"></i> Satyawati 6, Johang Khaireni, Gulmi</li>
+          </ul>
+        </div>
+        <div class="cv-block">
+          <div class="cv-block-title">Skills</div>
+          <div class="cv-skill"><div class="cv-skill-row"><span>Graphic Design</span><span>85%</span></div><div class="cv-skill-bar-bg"><div class="cv-skill-bar" style="width:85%"></div></div></div>
+          <div class="cv-skill"><div class="cv-skill-row"><span>Web Development</span><span>80%</span></div><div class="cv-skill-bar-bg"><div class="cv-skill-bar" style="width:80%"></div></div></div>
+          <div class="cv-skill"><div class="cv-skill-row"><span>IT Support</span><span>74%</span></div><div class="cv-skill-bar-bg"><div class="cv-skill-bar" style="width:74%"></div></div></div>
+          <div class="cv-skill"><div class="cv-skill-row"><span>Networking</span><span>72%</span></div><div class="cv-skill-bar-bg"><div class="cv-skill-bar" style="width:72%"></div></div></div>
+          <div class="cv-skill"><div class="cv-skill-row"><span>Cybersecurity</span><span>70%</span></div><div class="cv-skill-bar-bg"><div class="cv-skill-bar" style="width:70%"></div></div></div>
+          <div class="cv-skill"><div class="cv-skill-row"><span>Database / SQL</span><span>68%</span></div><div class="cv-skill-bar-bg"><div class="cv-skill-bar" style="width:68%"></div></div></div>
+          <div class="cv-skill"><div class="cv-skill-row"><span>Java Programming</span><span>65%</span></div><div class="cv-skill-bar-bg"><div class="cv-skill-bar" style="width:65%"></div></div></div>
+          <div class="cv-skill"><div class="cv-skill-row"><span>Android App Dev</span><span>60%</span></div><div class="cv-skill-bar-bg"><div class="cv-skill-bar" style="width:60%"></div></div></div>
+        </div>
+        <div class="cv-block">
+          <div class="cv-block-title">Tools</div>
+          <div class="cv-tools">
+            <span class="cv-tool-badge">HTML5</span><span class="cv-tool-badge">CSS3</span><span class="cv-tool-badge">JavaScript</span><span class="cv-tool-badge">Java</span><span class="cv-tool-badge">MySQL</span><span class="cv-tool-badge">Android Studio</span><span class="cv-tool-badge">Cisco Packet Tracer</span><span class="cv-tool-badge">Photoshop</span><span class="cv-tool-badge">Kali Linux</span><span class="cv-tool-badge">VS Code</span>
+          </div>
+        </div>
+      </aside>
+
+      <div class="cv-main">
+        <div class="cv-block">
+          <div class="cv-block-title">Objective</div>
+          <p class="cv-para">An IT graduate from Gulmi, Nepal, now pursuing a Bachelor's degree in Computer Engineering overseas, with hands-on experience across web development, graphic design, cybersecurity basics, Java/Android development, networking and databases. Looking for opportunities to apply and grow these skills on real projects while continuing to learn.</p>
+        </div>
+
+        <div class="cv-block">
+          <div class="cv-block-title">Education</div>
+          <div class="cv-edu-item">
+            <div class="cv-edu-yr">2082 BS — Present</div>
+            <div class="cv-edu-title">Bachelor's in Computer Engineering — Overseas</div>
+            <div class="cv-edu-desc">Continuing IT studies abroad after completing +2 in Nepal.</div>
+          </div>
+          <div class="cv-edu-item">
+            <div class="cv-edu-yr">2082 BS</div>
+            <div class="cv-edu-title">Class 12 Passed — GPA 3.65</div>
+            <div class="cv-edu-desc">Completed advanced networking (LAN/WAN, routing, switching) and software development. Built the School Management System as both a desktop and web application.</div>
+          </div>
+          <div class="cv-edu-item">
+            <div class="cv-edu-yr">2081 BS — Class 11</div>
+            <div class="cv-edu-title">Cybersecurity &amp; Java Programming</div>
+            <div class="cv-edu-desc">Studied social engineering tools, ran educational phishing demonstrations, and built a calculator app plus a full Android app in Java.</div>
+          </div>
+          <div class="cv-edu-item">
+            <div class="cv-edu-yr">2080 BS</div>
+            <div class="cv-edu-title">SEE — GPA 3.41</div>
+            <div class="cv-edu-desc">Shree Saraswati Secondary School, Satyawati 7, Johang, Gulmi.</div>
+          </div>
+          <div class="cv-edu-item">
+            <div class="cv-edu-yr">2079 BS — Class 9</div>
+            <div class="cv-edu-title">Joined the IT Stream</div>
+            <div class="cv-edu-desc">Started with graphic design — festive digital posters for Holi and Dashain.</div>
+          </div>
+        </div>
+
+        <div class="cv-block">
+          <div class="cv-block-title">Projects</div>
+          <div class="cv-proj-item">
+            <div class="cv-proj-top"><div class="cv-proj-title">School Management System</div><div class="cv-proj-yr">2082 BS — Completed</div></div>
+            <div class="cv-proj-desc">Web and desktop system covering admissions, attendance, fees, results, notices and messaging with role-based dashboards.</div>
+            <div class="cv-proj-tags"><span>Java</span><span>MySQL</span><span>Web App</span><span>Desktop App</span></div>
+          </div>
+          <div class="cv-proj-item">
+            <div class="cv-proj-top"><div class="cv-proj-title">Android Mobile Application</div><div class="cv-proj-yr">2081 BS</div></div>
+            <div class="cv-proj-desc">Complete Android app built with Java and Android Studio, with multi-activity navigation and APK testing.</div>
+            <div class="cv-proj-tags"><span>Java</span><span>Android Studio</span></div>
+          </div>
+          <div class="cv-proj-item">
+            <div class="cv-proj-top"><div class="cv-proj-title">Hotel Management Website</div><div class="cv-proj-yr">2080 BS</div></div>
+            <div class="cv-proj-desc">Full web app with room booking, customer management, admin dashboard and a billing/invoice module.</div>
+            <div class="cv-proj-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Database</span></div>
+          </div>
+          <div class="cv-proj-item">
+            <div class="cv-proj-top"><div class="cv-proj-title">Cybersecurity &amp; Social Engineering Demo</div><div class="cv-proj-yr">2081 BS</div></div>
+            <div class="cv-proj-desc">Educational phishing simulation and security-awareness documentation for training purposes.</div>
+            <div class="cv-proj-tags"><span>Kali Linux</span><span>Security Awareness</span></div>
+          </div>
+        </div>
+
+        <div class="cv-block">
+          <div class="cv-block-title">Services Offered</div>
+          <div class="cv-svc-grid">
+            <div class="cv-svc-item"><i class="fas fa-globe"></i> Web Development</div>
+            <div class="cv-svc-item"><i class="fas fa-palette"></i> Graphic Design</div>
+            <div class="cv-svc-item"><i class="fas fa-shield-halved"></i> Cybersecurity Consulting</div>
+            <div class="cv-svc-item"><i class="fas fa-mobile-screen"></i> Android App Development</div>
+            <div class="cv-svc-item"><i class="fas fa-network-wired"></i> Network Setup &amp; IT Support</div>
+            <div class="cv-svc-item"><i class="fas fa-database"></i> Database Solutions</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+</main>
+<footer id="footer"></footer>
+<div id="chatbot-root"></div>
+<script src="auth.js"></script>
+<script src="shared.js"></script>
+</body></html>

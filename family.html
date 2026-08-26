@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family | Kushal Bhandari</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+.family-section{padding:5rem 2rem;}
+.family-inner{max-width:1100px;margin:0 auto;}
+.fam-tree{margin-top:3rem;}
+.fam-gen-top{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;}
+.fam-card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:20px;padding:1.8rem 2rem;min-width:230px;text-align:center;transition:all 0.3s;}
+.fam-card:hover{border-color:var(--accent1);transform:translateY(-4px);box-shadow:0 20px 50px var(--accent1-glow);}
+.fam-avatar{font-size:2.5rem;margin-bottom:0.7rem;}
+.fam-avatar-photo{width:88px;height:88px;border-radius:50%;object-fit:cover;object-position:center 15%;border:3px solid var(--border);box-shadow:0 8px 25px var(--shadow);margin:0 auto 0.9rem;display:block;}
+.fam-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;color:var(--text-primary);}
+.fam-role{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--accent1);text-transform:uppercase;letter-spacing:1.5px;margin:0.35rem 0 1rem;}
+.fam-meta{list-style:none;text-align:left;display:flex;flex-direction:column;gap:0.45rem;font-size:0.82rem;color:var(--text-muted);}
+.fam-meta li{display:flex;align-items:center;gap:0.55rem;}
+.fam-meta li i{color:var(--accent1);width:16px;text-align:center;flex-shrink:0;}
+.fam-badge-memory{display:inline-flex;align-items:center;gap:0.4rem;margin-top:0.9rem;padding:0.35rem 0.8rem;border-radius:8px;background:var(--alt-bg);border:1px solid var(--border);font-size:0.72rem;color:var(--text-muted);}
+.fam-connector{width:2px;height:50px;background:linear-gradient(180deg,var(--accent1),var(--accent2));margin:0 auto;opacity:0.6;}
+.fam-branches{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:0;}
+.fam-branch{background:var(--card-bg);border:1.5px solid var(--border);border-radius:22px;padding:2rem;position:relative;transition:all 0.3s;}
+.fam-branch:hover{border-color:var(--accent1);box-shadow:0 20px 55px var(--accent1-glow);}
+.fam-branch-mine{border-color:var(--accent1);box-shadow:0 20px 60px var(--accent1-glow);}
+.fam-mine-tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff;font-family:'JetBrains Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:0.35rem 0.9rem;border-radius:20px;white-space:nowrap;box-shadow:0 8px 20px var(--accent1-glow);}
+.fam-branch-head{text-align:center;padding-bottom:1.4rem;margin-bottom:1.4rem;border-bottom:1px dashed var(--border);}
+.fam-branch-avatar{font-size:2.3rem;margin-bottom:0.5rem;}
+.fam-branch-avatar-photo{width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:center 20%;border:3px solid var(--border);box-shadow:0 8px 25px var(--shadow);margin:0 auto 0.7rem;display:block;}
+.fam-branch-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;color:var(--text-primary);}
+.fam-branch-role{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--accent1);text-transform:uppercase;letter-spacing:1.5px;margin:0.3rem 0 0.7rem;}
+.fam-sub{margin-bottom:1.3rem;}
+.fam-sub-label{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:0.5rem;}
+.fam-kids{display:flex;flex-direction:column;gap:0.6rem;}
+.fam-kid{background:var(--alt-bg);border:1px solid var(--border);border-radius:12px;padding:0.7rem 0.9rem;font-size:0.85rem;}
+.fam-kid-name{font-weight:700;color:var(--text-primary);}
+.fam-kid-meta{color:var(--text-muted);font-size:0.78rem;margin-top:0.15rem;}
+.fam-me{background:var(--accent1-bg);border:1.5px solid var(--accent1);}
+.fam-me a{color:var(--accent1);text-decoration:none;font-weight:700;font-size:0.78rem;display:inline-flex;align-items:center;gap:0.3rem;margin-top:0.3rem;}
+.fam-me a:hover{text-decoration:underline;}
+.fam-note{margin-top:3rem;background:var(--card-bg);border:1.5px solid var(--border);border-radius:16px;padding:1.3rem 1.6rem;font-size:0.85rem;color:var(--text-muted);display:flex;gap:0.8rem;align-items:flex-start;line-height:1.7;}
+.fam-note i{color:var(--accent1);margin-top:0.2rem;}
+@media(max-width:900px){.fam-branches{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-box"><div class="loader-photo-wrap"><div class="loader-photo-ring2" aria-hidden="true"></div><div class="loader-photo-ring" aria-hidden="true"></div><img src="photos/loader.jpg" alt="Kushal Bhandari with his bike" class="loader-photo"></div><div class="loader-name">Kushal <span class="ln-last">Bhandari</span><span class="loader-dot">.</span></div><div class="loader-slogan-wrap"><span class="loader-slogan">Turning Ideas Into Digital Reality</span></div><div class="loader-bar-wrap"><div class="loader-bar"></div></div><div class="loader-sub">Loading family tree...</div><div class="ld"><span></span><span></span><span></span></div></div></div>
+<canvas id="particles"></canvas>
+<div class="cursor-dot" id="cDot"></div><div class="cursor-ring" id="cRing"></div>
+<div id="settings-panel" class="settings-panel"><div class="sp-header"><span><i class="fas fa-sliders-h"></i> Settings</span><button onclick="closeSettings()"><i class="fas fa-times"></i></button></div><div class="sp-section"><div class="sp-label">Theme</div><div class="theme-btns"><button class="t-btn active" id="darkBtn" onclick="setTheme('dark')"><i class="fas fa-moon"></i> Dark</button><button class="t-btn" id="lightBtn" onclick="setTheme('light')"><i class="fas fa-sun"></i> Light</button></div></div><div class="sp-section"><div class="sp-label">Accent Color</div><div class="color-picks"><button class="c-pick active" style="--c:#00f5ff" data-color="cyan" onclick="setColor('cyan',this)"></button><button class="c-pick" style="--c:#7b2fff" data-color="purple" onclick="setColor('purple',this)"></button><button class="c-pick" style="--c:#ff006e" data-color="pink" onclick="setColor('pink',this)"></button><button class="c-pick" style="--c:#00e676" data-color="green" onclick="setColor('green',this)"></button><button class="c-pick" style="--c:#ff9100" data-color="orange" onclick="setColor('orange',this)"></button></div></div><div class="sp-section"><div class="sp-label">Font Size</div><div class="zoom-row"><button class="zoom-btn" onclick="changeZoom(-10)"><i class="fas fa-search-minus"></i></button><span id="zoomVal">100%</span><button class="zoom-btn" onclick="changeZoom(10)"><i class="fas fa-search-plus"></i></button></div></div></div>
+<div id="settings-overlay" class="sp-overlay" onclick="closeSettings()"></div>
+<nav id="nav"><div class="nav-inner"><a class="nav-logo" href="index.html"><span class="logo-k">Kushal</span><span class="logo-dot">.</span><span class="logo-slogan">IT Developer &amp; Designer</span></a><ul class="nav-links" id="navL"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="family.html" class="active">Family</a></li><li><a href="skills.html">Skills</a></li><li><a href="projects.html">Projects</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="quiz.html">Quiz</a></li><li><a href="fun.html">Fun Zone</a></li><li><a href="cv.html">CV</a></li><li><a href="contact.html">Contact</a></li></ul><div class="nav-actions"><div class="nav-auth"><a href="login.html" class="nav-auth-btn nav-auth-login">Login</a><a href="signup.html" class="nav-auth-btn nav-auth-signup">Sign Up</a></div><button class="nav-icon-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button><button class="hamburger" id="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div></nav>
+<div class="marquee-wrap"><div class="marquee-track" id="marqueeTrack"></div></div>
+<main>
+<div class="page-hero"><div class="page-hero-inner"><div class="page-hero-tag">// Family</div><h1 class="page-hero-title">The People Behind <em>My Story</em></h1><p class="page-hero-desc">Three generations, one family — rooted in Satyawati, Johang Khaireni, Gulmi.</p><div class="page-hero-line"></div></div></div>
+
+<section class="family-section"><div class="family-inner">
+  <div class="reveal"><div class="sec-tag">// Family Tree</div><h2 class="sec-title">My <em>Family</em></h2><div class="sec-line"></div></div>
+
+  <div class="fam-tree">
+    <!-- Grandparents -->
+    <div class="fam-gen-top reveal">
+      <div class="fam-card">
+        <img class="fam-avatar-photo" src="photos/grandfather.jpg" alt="Hari Prasad Bhandari">
+        <div class="fam-name">Hari Prasad Bhandari</div>
+        <div class="fam-role">Grandfather</div>
+        <ul class="fam-meta">
+          <li><i class="fas fa-shield-halved"></i> Retired — Indian Army</li>
+          <li><i class="fas fa-cake-candles"></i> Age 69</li>
+          <li><i class="fas fa-location-dot"></i> Satyawati-6, Johang, Gulmi</li>
+        </ul>
+      </div>
+      <div class="fam-card">
+        <img class="fam-avatar-photo" src="photos/grandmother.jpg" alt="Rewati Bhandari">
+        <div class="fam-name">Rewati Bhandari</div>
+        <div class="fam-role">Grandmother</div>
+        <ul class="fam-meta">
+          <li><i class="fas fa-house"></i> Homemaker</li>
+        </ul>
+        <div class="fam-badge-memory"><i class="fas fa-dove"></i> In Loving Memory</div>
+      </div>
+    </div>
+
+    <div class="fam-connector reveal"></div>
+
+    <!-- Three branches -->
+    <div class="fam-branches">
+
+      <!-- Branch 1: Bharat -->
+      <div class="fam-branch reveal">
+        <div class="fam-branch-head">
+          <img class="fam-branch-avatar-photo" src="photos/bharat-family.jpg" alt="Bharat Bhandari's family">
+          <div class="fam-branch-name">Bharat Bhandari</div>
+          <div class="fam-branch-role">Uncle</div>
+          <ul class="fam-meta" style="text-align:left;">
+            <li><i class="fas fa-graduation-cap"></i> Class 12 Pass</li>
+            <li><i class="fas fa-briefcase"></i> Works at a Company</li>
+            <li><i class="fas fa-cake-candles"></i> Age 42</li>
+            <li><i class="fas fa-ring"></i> Married</li>
+          </ul>
+        </div>
+        <div class="fam-sub">
+          <div class="fam-sub-label">Spouse</div>
+          <div class="fam-kid">
+            <div class="fam-kid-name">Sita Bhandari</div>
+            <div class="fam-kid-meta">Class 12 Pass · Homemaker · Age 40</div>
+          </div>
+        </div>
+        <div class="fam-sub">
+          <div class="fam-sub-label">Children</div>
+          <div class="fam-kids">
+            <div class="fam-kid"><div class="fam-kid-name">Sajana Bhandari</div><div class="fam-kid-meta">Age 13 · Class 9</div></div>
+            <div class="fam-kid"><div class="fam-kid-name">Sandhya Bhandari</div><div class="fam-kid-meta">Age 8 · Class 2</div></div>
+            <div class="fam-kid"><div class="fam-kid-name">Saloni Bhandari</div><div class="fam-kid-meta">Age 4 · Nursery</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Branch 2: Kumar (my father) -->
+      <div class="fam-branch fam-branch-mine reveal">
+        <span class="fam-mine-tag">My Family</span>
+        <div class="fam-branch-head">
+          <img class="fam-branch-avatar-photo" src="photos/kumar-family.jpg" alt="Kumar Bhandari's family">
+          <div class="fam-branch-name">Kumar Bhandari</div>
+          <div class="fam-branch-role">Father</div>
+          <ul class="fam-meta" style="text-align:left;">
+            <li><i class="fas fa-graduation-cap"></i> Class 12</li>
+          </ul>
+          <div class="fam-badge-memory"><i class="fas fa-dove"></i> In Loving Memory · Age 40</div>
+        </div>
+        <div class="fam-sub">
+          <div class="fam-sub-label">Spouse</div>
+          <div class="fam-kid">
+            <div class="fam-kid-name">Roma Pandey Bhandari</div>
+            <div class="fam-kid-meta">Bachelor's Degree · Junior Secretary, Ward Office · Age 42</div>
+          </div>
+        </div>
+        <div class="fam-sub">
+          <div class="fam-sub-label">Children</div>
+          <div class="fam-kids">
+            <div class="fam-kid"><div class="fam-kid-name">Kunjan Bhandari</div><div class="fam-kid-meta">Brother · Age 17 · Class 12, IT</div></div>
+            <div class="fam-kid fam-me"><div class="fam-kid-name">Kushal Bhandari</div><div class="fam-kid-meta">Myself · Computer Engineering Student (Overseas)</div><a href="about.html">More about me <i class="fas fa-arrow-right"></i></a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Branch 3: Dipak -->
+      <div class="fam-branch reveal">
+        <div class="fam-branch-head">
+          <img class="fam-branch-avatar-photo" src="photos/dipak-family.jpg" alt="Dipak Bhandari's family">
+          <div class="fam-branch-name">Dipak Bhandari</div>
+          <div class="fam-branch-role">Uncle</div>
+          <ul class="fam-meta" style="text-align:left;">
+            <li><i class="fas fa-graduation-cap"></i> Class 12 Pass</li>
+            <li><i class="fas fa-briefcase"></i> Working in Malta</li>
+            <li><i class="fas fa-location-dot"></i> Address: Malta</li>
+          </ul>
+        </div>
+        <div class="fam-sub">
+          <div class="fam-sub-label">Spouse</div>
+          <div class="fam-kid">
+            <div class="fam-kid-name">Sabita Gyawali Bhandari</div>
+            <div class="fam-kid-meta">Class 12 Pass · Working in Malta</div>
+          </div>
+        </div>
+        <div class="fam-sub">
+          <div class="fam-sub-label">Daughter</div>
+          <div class="fam-kids">
+            <div class="fam-kid"><div class="fam-kid-name">Sedrina Bhandari</div><div class="fam-kid-meta">Age 8 · Class 2 · Studying in Malta</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="fam-note reveal"><i class="fas fa-circle-info"></i><div>Unless noted otherwise, the family resides at <strong>Satyawati-6, Johang Khaireni, Gulmi</strong>. My uncle Dipak's family is based in <strong>Malta</strong>.</div></div>
+</div></section>
+</main>
+<footer id="footer"></footer>
+<div id="chatbot-root"></div>
+<script src="auth.js"></script>
+<script src="shared.js"></script>
+</body></html>

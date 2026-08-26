@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz About Me | Kushal Bhandari</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+.quiz-section{padding:5rem 2rem;}
+.quiz-inner{max-width:780px;margin:0 auto;}
+.quiz-card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:22px;padding:2.5rem;margin-top:2.5rem;box-shadow:0 20px 60px var(--shadow);}
+.quiz-progress-wrap{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;}
+.quiz-progress-bar-bg{flex:1;height:6px;background:var(--alt-bg);border-radius:6px;overflow:hidden;}
+.quiz-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent1),var(--accent2));border-radius:6px;transition:width 0.4s ease;}
+.quiz-progress-txt{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-muted);white-space:nowrap;}
+.q-block{display:none;}
+.q-block.active{display:block;animation:fadeInUp 0.4s ease;}
+.q-num{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--accent1);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.6rem;}
+.q-text{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:var(--text-primary);margin-bottom:1.6rem;line-height:1.5;}
+.q-options{display:flex;flex-direction:column;gap:0.8rem;}
+.q-opt{display:flex;align-items:center;gap:0.9rem;padding:1rem 1.2rem;border:1.5px solid var(--border);border-radius:14px;background:var(--alt-bg);cursor:pointer;transition:all 0.25s;font-size:0.95rem;color:var(--text-primary);}
+.q-opt:hover{border-color:var(--accent1);transform:translateX(4px);}
+.q-opt.selected{border-color:var(--accent1);background:var(--accent1-bg);}
+.q-opt.correct{border-color:#00e676;background:rgba(0,230,118,0.1);}
+.q-opt.wrong{border-color:#ff5c7a;background:rgba(255,92,122,0.1);}
+.q-opt-letter{width:30px;height:30px;border-radius:8px;background:var(--card-bg);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:0.82rem;flex-shrink:0;}
+.q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;}
+.q-feedback{margin-top:1.2rem;font-size:0.88rem;font-weight:700;display:none;padding:0.8rem 1rem;border-radius:12px;}
+.q-feedback.show{display:block;animation:fadeInUp 0.3s ease;}
+.q-feedback.correct-fb{background:rgba(0,230,118,0.1);color:#00e676;border:1px solid #00e676;}
+.q-feedback.wrong-fb{background:rgba(255,92,122,0.1);color:#ff5c7a;border:1px solid #ff5c7a;}
+.quiz-result{display:none;text-align:center;}
+.quiz-result.show{display:block;animation:fadeInUp 0.5s ease;}
+.result-emoji{font-size:4rem;margin-bottom:1rem;}
+.result-score{font-family:'Playfair Display',serif;font-weight:900;font-size:3rem;background:linear-gradient(135deg,var(--accent1),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:0.6rem;}
+.result-msg{color:var(--text-muted);font-size:1rem;line-height:1.8;margin-bottom:2rem;max-width:480px;margin-left:auto;margin-right:auto;}
+.quiz-intro{text-align:center;}
+.quiz-intro-icon{font-size:3.5rem;margin-bottom:1rem;}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.quiz-card{padding:1.6rem;}.q-text{font-size:1.1rem;}}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-box"><div class="loader-photo-wrap"><div class="loader-photo-ring2" aria-hidden="true"></div><div class="loader-photo-ring" aria-hidden="true"></div><img src="photos/loader.jpg" alt="Kushal Bhandari with his bike" class="loader-photo"></div><div class="loader-name">Kushal <span class="ln-last">Bhandari</span><span class="loader-dot">.</span></div><div class="loader-slogan-wrap"><span class="loader-slogan">Turning Ideas Into Digital Reality</span></div><div class="loader-bar-wrap"><div class="loader-bar"></div></div><div class="loader-sub">Preparing quiz...</div><div class="ld"><span></span><span></span><span></span></div></div></div>
+<canvas id="particles"></canvas>
+<div class="cursor-dot" id="cDot"></div><div class="cursor-ring" id="cRing"></div>
+<div id="settings-panel" class="settings-panel"><div class="sp-header"><span><i class="fas fa-sliders-h"></i> Settings</span><button onclick="closeSettings()"><i class="fas fa-times"></i></button></div><div class="sp-section"><div class="sp-label">Theme</div><div class="theme-btns"><button class="t-btn active" id="darkBtn" onclick="setTheme('dark')"><i class="fas fa-moon"></i> Dark</button><button class="t-btn" id="lightBtn" onclick="setTheme('light')"><i class="fas fa-sun"></i> Light</button></div></div><div class="sp-section"><div class="sp-label">Accent Color</div><div class="color-picks"><button class="c-pick active" style="--c:#00f5ff" data-color="cyan" onclick="setColor('cyan',this)"></button><button class="c-pick" style="--c:#7b2fff" data-color="purple" onclick="setColor('purple',this)"></button><button class="c-pick" style="--c:#ff006e" data-color="pink" onclick="setColor('pink',this)"></button><button class="c-pick" style="--c:#00e676" data-color="green" onclick="setColor('green',this)"></button><button class="c-pick" style="--c:#ff9100" data-color="orange" onclick="setColor('orange',this)"></button></div></div><div class="sp-section"><div class="sp-label">Font Size</div><div class="zoom-row"><button class="zoom-btn" onclick="changeZoom(-10)"><i class="fas fa-search-minus"></i></button><span id="zoomVal">100%</span><button class="zoom-btn" onclick="changeZoom(10)"><i class="fas fa-search-plus"></i></button></div></div></div>
+<div id="settings-overlay" class="sp-overlay" onclick="closeSettings()"></div>
+<nav id="nav"><div class="nav-inner"><a class="nav-logo" href="index.html"><span class="logo-k">Kushal</span><span class="logo-dot">.</span><span class="logo-slogan">IT Developer &amp; Designer</span></a><ul class="nav-links" id="navL"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="family.html">Family</a></li><li><a href="skills.html">Skills</a></li><li><a href="projects.html">Projects</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="quiz.html" class="active">Quiz</a></li><li><a href="fun.html">Fun Zone</a></li><li><a href="cv.html">CV</a></li><li><a href="contact.html">Contact</a></li></ul><div class="nav-actions"><div class="nav-auth"><a href="login.html" class="nav-auth-btn nav-auth-login">Login</a><a href="signup.html" class="nav-auth-btn nav-auth-signup">Sign Up</a></div><button class="nav-icon-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button><button class="hamburger" id="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div></nav>
+<div class="marquee-wrap"><div class="marquee-track" id="marqueeTrack"></div></div>
+<main>
+<div class="page-hero"><div class="page-hero-inner"><div class="page-hero-tag">// Test Yourself</div><h1 class="page-hero-title">How Well Do You <em>Know Me?</em></h1><p class="page-hero-desc">A quick 8-question quiz about my life, skills and journey. Let's see how much you remember!</p><div class="page-hero-line"></div></div></div>
+
+<section class="quiz-section"><div class="quiz-inner">
+  <div class="reveal"><div class="sec-tag">// Quiz About Me</div><h2 class="sec-title">Kushal <em>Trivia</em></h2><div class="sec-line"></div></div>
+
+  <div class="quiz-card reveal">
+    <div id="quizIntro" class="quiz-intro">
+      <div class="quiz-intro-icon">🧠</div>
+      <h3 style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:var(--text-primary);margin-bottom:0.8rem;">Ready to test your knowledge?</h3>
+      <p style="color:var(--text-muted);margin-bottom:1.8rem;">8 quick questions based on the About, Skills and Projects pages. No pressure — it's just for fun 😊</p>
+      <button class="btn btn-fill" onclick="startQuiz()"><i class="fas fa-play"></i> Start Quiz</button>
+    </div>
+
+    <div id="quizPlay" style="display:none;">
+      <div class="quiz-progress-wrap">
+        <div class="quiz-progress-bar-bg"><div class="quiz-progress-bar" id="quizProgressBar"></div></div>
+        <div class="quiz-progress-txt" id="quizProgressTxt">Q1 / 8</div>
+      </div>
+      <div id="qBlocks"></div>
+      <div class="q-feedback" id="qFeedback"></div>
+      <div class="q-nav">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--text-muted);">Score: <span id="liveScore">0</span>/8</div>
+        <button class="btn btn-fill" id="nextBtn" onclick="nextQuestion()" disabled>Next <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <div class="quiz-result" id="quizResult">
+      <div class="result-emoji" id="resultEmoji">🎉</div>
+      <div class="result-score"><span id="finalScore">0</span>/8</div>
+      <div class="result-msg" id="resultMsg"></div>
+      <button class="btn btn-ghost" onclick="startQuiz()"><i class="fas fa-rotate-right"></i> Try Again</button>
+      <a href="fun.html" class="btn btn-fill" style="margin-left:0.8rem;"><i class="fas fa-face-laugh"></i> Visit Fun Zone</a>
+    </div>
+  </div>
+</div></section>
+</main>
+<footer id="footer"></footer>
+<div id="chatbot-root"></div>
+<script src="auth.js"></script>
+<script src="shared.js"></script>
+<script>
+const QUESTIONS = [
+  { q: "Which district in Nepal is Kushal from?", opts: ["Gulmi", "Palpa", "Baglung", "Syangja"], correct: 0 },
+  { q: "What class did Kushal first enroll in the IT stream?", opts: ["Class 8", "Class 9", "Class 10", "Class 11"], correct: 1 },
+  { q: "What GPA did Kushal score in his SEE exams?", opts: ["3.15", "3.85", "3.41", "2.95"], correct: 2 },
+  { q: "Which full project did Kushal build in Class 10?", opts: ["Hotel Management Website", "School Management System", "Weather App", "E-commerce Store"], correct: 0 },
+  { q: "Which programming language did Kushal use for his Android app?", opts: ["Python", "Kotlin", "Java", "Swift"], correct: 2 },
+  { q: "Which is Kushal's strongest skill by self-rating?", opts: ["Cybersecurity", "Networking", "Graphic Design", "Database/SQL"], correct: 2 },
+  { q: "What did Kushal focus on during Class 12?", opts: ["Game Development", "Advanced Networking & Software Development", "Cloud Computing", "3D Animation"], correct: 1 },
+  { q: "What tool does Kushal use for network simulations?", opts: ["Wireshark", "Cisco Packet Tracer", "Blender", "Figma"], correct: 1 }
+];
+
+let curQ = 0, score = 0, answered = false;
+
+function startQuiz(){
+  curQ = 0; score = 0; answered = false;
+  document.getElementById('quizIntro').style.display = 'none';
+  document.getElementById('quizResult').classList.remove('show');
+  document.getElementById('quizPlay').style.display = 'block';
+  document.getElementById('liveScore').textContent = '0';
+  renderQuestions();
+  showQuestion(0);
+}
+
+function renderQuestions(){
+  const wrap = document.getElementById('qBlocks');
+  wrap.innerHTML = QUESTIONS.map((item, qi) => `
+    <div class="q-block" data-q="${qi}">
+      <div class="q-num">Question ${qi+1} of ${QUESTIONS.length}</div>
+      <div class="q-text">${item.q}</div>
+      <div class="q-options">
+        ${item.opts.map((opt, oi) => `
+          <div class="q-opt" data-o="${oi}" onclick="selectOption(${qi}, ${oi})">
+            <span class="q-opt-letter">${String.fromCharCode(65+oi)}</span>
+            <span>${opt}</span>
+          </div>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function showQuestion(i){
+  document.querySelectorAll('.q-block').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.q-block[data-q="${i}"]`).classList.add('active');
+  document.getElementById('quizProgressTxt').textContent = `Q${i+1} / ${QUESTIONS.length}`;
+  document.getElementById('quizProgressBar').style.width = ((i)/QUESTIONS.length*100) + '%';
+  document.getElementById('qFeedback').className = 'q-feedback';
+  document.getElementById('nextBtn').disabled = true;
+  document.getElementById('nextBtn').innerHTML = (i === QUESTIONS.length-1) ? 'See Result <i class="fas fa-flag-checkered"></i>' : 'Next <i class="fas fa-arrow-right"></i>';
+  answered = false;
+}
+
+function selectOption(qi, oi){
+  if (answered) return;
+  answered = true;
+  const block = document.querySelector(`.q-block[data-q="${qi}"]`);
+  const opts = block.querySelectorAll('.q-opt');
+  const correct = QUESTIONS[qi].correct;
+  opts.forEach((o, idx) => {
+    o.classList.add('selected');
+    if (idx === correct) o.classList.add('correct');
+    else if (idx === oi) o.classList.add('wrong');
+  });
+  const fb = document.getElementById('qFeedback');
+  if (oi === correct) {
+    score++;
+    document.getElementById('liveScore').textContent = score;
+    fb.textContent = "✅ Correct! Nicely done.";
+    fb.className = 'q-feedback show correct-fb';
+  } else {
+    fb.textContent = `❌ Not quite — the correct answer is "${QUESTIONS[qi].opts[correct]}".`;
+    fb.className = 'q-feedback show wrong-fb';
+  }
+  document.getElementById('nextBtn').disabled = false;
+}
+
+function nextQuestion(){
+  if (curQ < QUESTIONS.length - 1) {
+    curQ++;
+    showQuestion(curQ);
+  } else {
+    finishQuiz();
+  }
+}
+
+function finishQuiz(){
+  document.getElementById('quizProgressBar').style.width = '100%';
+  document.getElementById('quizPlay').style.display = 'none';
+  document.getElementById('quizResult').classList.add('show');
+  document.getElementById('finalScore').textContent = score;
+  const pct = score / QUESTIONS.length;
+  let emoji, msg;
+  if (pct === 1) { emoji = '🏆'; msg = "Perfect score! You clearly know Kushal's story inside out — from Gulmi's hills to Class 12 networking labs."; }
+  else if (pct >= 0.75) { emoji = '🎉'; msg = "Great job! You know Kushal pretty well. Just a couple of details slipped past you."; }
+  else if (pct >= 0.5) { emoji = '🙂'; msg = "Not bad! You've got the basics down — check out the About and Skills pages for the rest."; }
+  else { emoji = '📚'; msg = "Looks like it's time for a re-read! Head over to the About Me page to learn more about Kushal's journey."; }
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultMsg').textContent = msg;
+}
+</script>
+</body></html>

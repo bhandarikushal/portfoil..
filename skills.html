@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skills | Kushal Bhandari</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+.skills-section{padding:5rem 2rem;}.skills-inner{max-width:1100px;margin:0 auto;}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;margin-top:3rem;}
+.sk-card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:20px;padding:2rem;transition:all 0.35s;position:relative;overflow:hidden;}
+.sk-card::after{content:'';position:absolute;top:0;right:0;width:80px;height:80px;background:linear-gradient(135deg,var(--accent1),var(--accent2));opacity:0.06;clip-path:polygon(100% 0,0 0,100% 100%);}
+.sk-card:hover{border-color:var(--accent1);transform:translateY(-7px);box-shadow:0 20px 50px var(--accent1-glow);}
+.sk-icon{font-size:2.5rem;margin-bottom:1rem;}
+.sk-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;color:var(--text-primary);margin-bottom:0.4rem;}
+.sk-level{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--accent1);margin-bottom:0.8rem;}
+.sk-bar-bg{background:var(--alt-bg);height:5px;border-radius:5px;overflow:hidden;}
+.sk-bar{height:100%;background:linear-gradient(90deg,var(--accent1),var(--accent2));border-radius:5px;width:0;transition:width 1.6s ease;}
+.sk-pct{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--accent1);margin-top:0.5rem;text-align:right;}
+.sk-desc{font-size:0.85rem;color:var(--text-muted);line-height:1.65;margin-top:0.8rem;}
+.tools-section{background:var(--alt-bg);border-top:1px solid var(--border);padding:4rem 2rem;}
+.tools-inner{max-width:1100px;margin:0 auto;}
+.tools-grid{display:flex;flex-wrap:wrap;gap:0.8rem;margin-top:2rem;}
+.tool-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--card-bg);border:1.5px solid var(--border);border-radius:12px;padding:0.6rem 1.1rem;font-size:0.88rem;font-weight:700;color:var(--text-primary);transition:all 0.3s;}
+.tool-badge:hover{border-color:var(--accent1);color:var(--accent1);transform:translateY(-3px);}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-box"><div class="loader-photo-wrap"><div class="loader-photo-ring2" aria-hidden="true"></div><div class="loader-photo-ring" aria-hidden="true"></div><img src="photos/loader.jpg" alt="Kushal Bhandari with his bike" class="loader-photo"></div><div class="loader-name">Kushal <span class="ln-last">Bhandari</span><span class="loader-dot">.</span></div><div class="loader-slogan-wrap"><span class="loader-slogan">Turning Ideas Into Digital Reality</span></div><div class="loader-bar-wrap"><div class="loader-bar"></div></div><div class="loader-sub">Loading skills...</div><div class="ld"><span></span><span></span><span></span></div></div></div>
+<canvas id="particles"></canvas><div class="cursor-dot" id="cDot"></div><div class="cursor-ring" id="cRing"></div>
+<div id="settings-panel" class="settings-panel"><div class="sp-header"><span><i class="fas fa-sliders-h"></i> Settings</span><button onclick="closeSettings()"><i class="fas fa-times"></i></button></div><div class="sp-section"><div class="sp-label">Theme</div><div class="theme-btns"><button class="t-btn active" id="darkBtn" onclick="setTheme('dark')"><i class="fas fa-moon"></i> Dark</button><button class="t-btn" id="lightBtn" onclick="setTheme('light')"><i class="fas fa-sun"></i> Light</button></div></div><div class="sp-section"><div class="sp-label">Accent Color</div><div class="color-picks"><button class="c-pick active" style="--c:#00f5ff" data-color="cyan" onclick="setColor('cyan',this)"></button><button class="c-pick" style="--c:#7b2fff" data-color="purple" onclick="setColor('purple',this)"></button><button class="c-pick" style="--c:#ff006e" data-color="pink" onclick="setColor('pink',this)"></button><button class="c-pick" style="--c:#00e676" data-color="green" onclick="setColor('green',this)"></button><button class="c-pick" style="--c:#ff9100" data-color="orange" onclick="setColor('orange',this)"></button></div></div><div class="sp-section"><div class="sp-label">Font Size</div><div class="zoom-row"><button class="zoom-btn" onclick="changeZoom(-10)"><i class="fas fa-search-minus"></i></button><span id="zoomVal">100%</span><button class="zoom-btn" onclick="changeZoom(10)"><i class="fas fa-search-plus"></i></button></div></div></div>
+<div id="settings-overlay" class="sp-overlay" onclick="closeSettings()"></div>
+<nav id="nav"><div class="nav-inner"><a class="nav-logo" href="index.html"><span class="logo-k">Kushal</span><span class="logo-dot">.</span><span class="logo-slogan">IT Developer &amp; Designer</span></a><ul class="nav-links" id="navL"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="family.html">Family</a></li><li><a href="skills.html" class="active">Skills</a></li><li><a href="projects.html">Projects</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="quiz.html">Quiz</a></li><li><a href="fun.html">Fun Zone</a></li><li><a href="cv.html">CV</a></li><li><a href="contact.html">Contact</a></li></ul><div class="nav-actions"><div class="nav-auth"><a href="login.html" class="nav-auth-btn nav-auth-login">Login</a><a href="signup.html" class="nav-auth-btn nav-auth-signup">Sign Up</a></div><button class="nav-icon-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button><button class="hamburger" id="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div></nav>
+<div class="marquee-wrap"><div class="marquee-track" id="marqueeTrack"></div></div>
+<main>
+<div class="page-hero"><div class="page-hero-inner"><div class="page-hero-tag">// Technical Skills</div><h1 class="page-hero-title">My <em>Capabilities</em></h1><p class="page-hero-desc">From design to development, security to networking — here's what I bring to the table.</p><div class="page-hero-line"></div></div></div>
+<section class="skills-section"><div class="skills-inner">
+  <div class="reveal" style="margin-bottom:3rem"><div class="sec-tag">// Skill Set</div><h2 class="sec-title">Technical <em>Proficiency</em></h2><div class="sec-line"></div></div>
+  <div class="skills-grid">
+    <div class="sk-card reveal"><div class="sk-icon">🎨</div><div class="sk-name">Graphic Design</div><div class="sk-level">Advanced</div><div class="sk-bar-bg"><div class="sk-bar" data-pct="85"></div></div><div class="sk-pct">85%</div><div class="sk-desc">Digital poster design, branding, visual composition, color theory, festive graphics.</div></div>
+    <div class="sk-card reveal"><div class="sk-icon">🌐</div><div class="sk-name">Web Development</div><div class="sk-level">Intermediate–Advanced</div><div class="sk-bar-bg"><div class="sk-bar" data-pct="80"></div></div><div class="sk-pct">80%</div><div class="sk-desc">Responsive websites, full-stack projects like hotel management systems, HTML/CSS/JS.</div></div>
+    <div class="sk-card reveal"><div class="sk-icon">🔐</div><div class="sk-name">Cybersecurity</div><div class="sk-level">Intermediate</div><div class="sk-bar-bg"><div class="sk-bar" data-pct="70"></div></div><div class="sk-pct">70%</div><div class="sk-desc">Social engineering tools, phishing simulations, security awareness, ethical hacking basics.</div></div>
+    <div class="sk-card reveal"><div class="sk-icon">☕</div><div class="sk-name">Java Programming</div><div class="sk-level">Intermediate</div><div class="sk-bar-bg"><div class="sk-bar" data-pct="65"></div></div><div class="sk-pct">65%</div><div class="sk-desc">Built calculator and Android mobile app; object-oriented programming concepts.</div></div>
+    <div class="sk-card reveal"><div class="sk-icon">🖧</div><div class="sk-name">Networking</div><div class="sk-level">Intermediate</div><div class="sk-bar-bg"><div class="sk-bar" data-pct="72"></div></div><div class="sk-pct">72%</div><div class="sk-desc">LAN/WAN setup, routing, switching, network troubleshooting, IT infrastructure.</div></div>
+    <div class="sk-card reveal"><div class="sk-icon">🗄️</div><div class="sk-name">Database / SQL</div><div class="sk-level">Intermediate</div><div class="sk-bar-bg"><div class="sk-bar" data-pct="68"></div></div><div class="sk-pct">68%</div><div class="sk-desc">Database design, SQL queries, data management integrated with web applications.</div></div>
+    <div class="sk-card reveal"><div class="sk-icon">📱</div><div class="sk-name">Android App Dev</div><div class="sk-level">Beginner–Intermediate</div><div class="sk-bar-bg"><div class="sk-bar" data-pct="60"></div></div><div class="sk-pct">60%</div><div class="sk-desc">Built functional Android mobile apps using Java; UI design and app architecture.</div></div>
+    <div class="sk-card reveal"><div class="sk-icon">⚙️</div><div class="sk-name">IT Support</div><div class="sk-level">Intermediate</div><div class="sk-bar-bg"><div class="sk-bar" data-pct="74"></div></div><div class="sk-pct">74%</div><div class="sk-desc">Hardware setup, software troubleshooting, system configuration, IT helpdesk skills.</div></div>
+  </div>
+</div></section>
+<section class="tools-section"><div class="tools-inner">
+  <div class="reveal"><div class="sec-tag">// Tools I Use</div><h2 class="sec-title">Tools & <em>Technologies</em></h2><div class="sec-line"></div></div>
+  <div class="tools-grid reveal">
+    <div class="tool-badge">💻 HTML5</div><div class="tool-badge">🎨 CSS3</div><div class="tool-badge">⚡ JavaScript</div><div class="tool-badge">☕ Java</div><div class="tool-badge">🗄️ MySQL</div><div class="tool-badge">📱 Android Studio</div><div class="tool-badge">🖧 Cisco Packet Tracer</div><div class="tool-badge">🎭 Photoshop</div><div class="tool-badge">🔐 Kali Linux</div><div class="tool-badge">🌐 VS Code</div><div class="tool-badge">📊 MS Office</div><div class="tool-badge">🖥️ Windows Server</div>
+  </div>
+</div></section>
+</main>
+<footer id="footer"></footer><div id="chatbot-root"></div>
+<script src="auth.js"></script>
+<script src="shared.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        const bar = e.target.querySelector('.sk-bar');
+        if (bar) bar.style.width = bar.dataset.pct + '%';
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+});
+</script>
+</body></html>

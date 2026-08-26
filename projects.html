@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects | Kushal Bhandari</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+.projects-section{padding:5rem 2rem;}
+.projects-inner{max-width:1100px;margin:0 auto;}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;margin-top:3rem;}
+.pcard{background:var(--card-bg);border:1.5px solid var(--border);border-radius:22px;overflow:hidden;transition:all 0.35s;}
+.pcard:hover{transform:translateY(-8px);border-color:var(--accent1);box-shadow:0 25px 60px var(--accent1-glow);}
+.pcard-top{padding:2rem 2rem 1.5rem;}
+.pcard-icon{font-size:2.8rem;margin-bottom:1rem;}
+.pcard-class{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent2);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.4rem;}
+.pcard-year{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-muted);letter-spacing:1px;}
+.pcard-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--text-primary);margin:0.5rem 0 0.8rem;}
+.pcard-desc{font-size:0.9rem;color:var(--text-muted);line-height:1.75;}
+.pcard-what{margin-top:1.2rem;}
+.pcard-what-title{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--accent1);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:0.5rem;}
+.pcard-list{list-style:none;display:flex;flex-direction:column;gap:0.3rem;}
+.pcard-list li{font-size:0.85rem;color:var(--text-muted);display:flex;align-items:flex-start;gap:0.5rem;}
+.pcard-list li::before{content:'→';color:var(--accent1);flex-shrink:0;margin-top:1px;}
+.pcard-bottom{padding:0 2rem 1.8rem;}
+.pcard-tags{display:flex;flex-wrap:wrap;gap:0.4rem;}
+.ptag{font-size:0.72rem;padding:0.22rem 0.7rem;border-radius:100px;background:var(--accent1-bg);color:var(--accent1);border:1px solid rgba(0,245,255,0.15);font-family:'JetBrains Mono',monospace;}
+
+/* ===== Featured Project: School Management System ===== */
+.pcard-featured{grid-column:1/-1;position:relative;border-radius:28px;border:1.5px solid var(--border);background:var(--card-bg);overflow:hidden;isolation:isolate;}
+.pcard-featured::before{content:'';position:absolute;inset:-2px;z-index:-1;border-radius:28px;background:conic-gradient(from 0deg,var(--accent1),var(--accent2),var(--accent3),var(--accent1));opacity:0.55;animation:spinBorder 6s linear infinite;filter:blur(1px);}
+.pcard-featured::after{content:'';position:absolute;inset:1.5px;border-radius:26px;background:var(--card-bg);z-index:-1;}
+@keyframes spinBorder{to{transform:rotate(360deg)}}
+.pcf-glow{position:absolute;top:-120px;right:-120px;width:320px;height:320px;background:radial-gradient(circle,var(--accent1-glow),transparent 70%);border-radius:50%;pointer-events:none;animation:pcfFloat 8s ease-in-out infinite;}
+@keyframes pcfFloat{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,30px)}}
+.pcf-inner{position:relative;padding:2.8rem;display:grid;grid-template-columns:1.1fr 0.9fr;gap:2.5rem;align-items:start;}
+.pcf-top-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem;}
+.pcf-badge-live{display:inline-flex;align-items:center;gap:0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent1);background:var(--accent1-bg);border:1px solid var(--accent1);padding:0.4rem 0.9rem;border-radius:100px;}
+.pcf-badge-live .dot{width:7px;height:7px;border-radius:50%;background:var(--accent1);box-shadow:0 0 8px var(--accent1);animation:blink 1.2s ease infinite;}
+.pcf-platforms{display:flex;gap:0.5rem;}
+.pcf-plat{width:38px;height:38px;border-radius:12px;background:var(--alt-bg);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--accent1);transition:all 0.3s;animation:pcfBob 3s ease-in-out infinite;}
+.pcf-plat:nth-child(2){animation-delay:0.3s;}
+.pcf-plat:nth-child(3){animation-delay:0.6s;}
+@keyframes pcfBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.pcf-plat:hover{border-color:var(--accent1);background:var(--accent1-bg);transform:scale(1.1);}
+.pcf-icon-big{font-size:3.2rem;margin-bottom:0.8rem;}
+.pcf-class{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--accent2);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.4rem;}
+.pcf-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.7rem;color:var(--text-primary);margin-bottom:0.9rem;line-height:1.25;}
+.pcf-title em{font-style:italic;background:linear-gradient(135deg,var(--accent1),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.pcf-desc{font-size:0.95rem;color:var(--text-muted);line-height:1.85;margin-bottom:1.6rem;}
+.pcf-features-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin-bottom:1.6rem;}
+.pcf-feat{background:var(--alt-bg);border:1.5px solid var(--border);border-radius:14px;padding:0.9rem 1rem;transition:all 0.3s;}
+.pcf-feat:hover{border-color:var(--accent1);transform:translateY(-3px);box-shadow:0 10px 25px var(--accent1-glow);}
+.pcf-feat-icon{color:var(--accent1);font-size:1rem;margin-bottom:0.4rem;}
+.pcf-feat-name{font-family:'Syne',sans-serif;font-weight:700;font-size:0.83rem;color:var(--text-primary);margin-bottom:0.2rem;}
+.pcf-feat-desc{font-size:0.75rem;color:var(--text-muted);line-height:1.5;}
+.pcf-side-title{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent1);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:1rem;}
+.pcf-role-list{display:flex;flex-direction:column;gap:0.7rem;margin-bottom:1.8rem;}
+.pcf-role{display:flex;align-items:center;gap:0.8rem;background:var(--alt-bg);border:1.5px solid var(--border);border-radius:14px;padding:0.8rem 1rem;transition:all 0.3s;}
+.pcf-role:hover{border-color:var(--accent2);transform:translateX(6px);}
+.pcf-role-icon{width:34px;height:34px;border-radius:10px;background:var(--accent1-bg);display:flex;align-items:center;justify-content:center;color:var(--accent1);flex-shrink:0;}
+.pcf-role-text b{display:block;font-family:'Syne',sans-serif;font-size:0.85rem;color:var(--text-primary);}
+.pcf-role-text span{font-size:0.75rem;color:var(--text-muted);}
+.pcf-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.6rem;}
+.pcf-stack{display:flex;flex-wrap:wrap;gap:0.6rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.pcf-stack-item{display:flex;align-items:center;gap:0.4rem;font-size:0.8rem;font-weight:700;color:var(--text-primary);background:var(--card-bg);border:1.5px solid var(--border);border-radius:10px;padding:0.5rem 0.85rem;transition:all 0.3s;}
+.pcf-stack-item:hover{border-color:var(--accent1);color:var(--accent1);transform:translateY(-3px);}
+@media(max-width:850px){.pcf-inner{grid-template-columns:1fr;padding:2rem;}.pcf-features-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-box"><div class="loader-photo-wrap"><div class="loader-photo-ring2" aria-hidden="true"></div><div class="loader-photo-ring" aria-hidden="true"></div><img src="photos/loader.jpg" alt="Kushal Bhandari with his bike" class="loader-photo"></div><div class="loader-name">Kushal <span class="ln-last">Bhandari</span><span class="loader-dot">.</span></div><div class="loader-slogan-wrap"><span class="loader-slogan">Turning Ideas Into Digital Reality</span></div><div class="loader-bar-wrap"><div class="loader-bar"></div></div><div class="loader-sub">Loading projects...</div><div class="ld"><span></span><span></span><span></span></div></div></div>
+<canvas id="particles"></canvas><div class="cursor-dot" id="cDot"></div><div class="cursor-ring" id="cRing"></div>
+<div id="settings-panel" class="settings-panel"><div class="sp-header"><span><i class="fas fa-sliders-h"></i> Settings</span><button onclick="closeSettings()"><i class="fas fa-times"></i></button></div><div class="sp-section"><div class="sp-label">Theme</div><div class="theme-btns"><button class="t-btn active" id="darkBtn" onclick="setTheme('dark')"><i class="fas fa-moon"></i> Dark</button><button class="t-btn" id="lightBtn" onclick="setTheme('light')"><i class="fas fa-sun"></i> Light</button></div></div><div class="sp-section"><div class="sp-label">Accent Color</div><div class="color-picks"><button class="c-pick active" style="--c:#00f5ff" data-color="cyan" onclick="setColor('cyan',this)"></button><button class="c-pick" style="--c:#7b2fff" data-color="purple" onclick="setColor('purple',this)"></button><button class="c-pick" style="--c:#ff006e" data-color="pink" onclick="setColor('pink',this)"></button><button class="c-pick" style="--c:#00e676" data-color="green" onclick="setColor('green',this)"></button><button class="c-pick" style="--c:#ff9100" data-color="orange" onclick="setColor('orange',this)"></button></div></div><div class="sp-section"><div class="sp-label">Font Size</div><div class="zoom-row"><button class="zoom-btn" onclick="changeZoom(-10)"><i class="fas fa-search-minus"></i></button><span id="zoomVal">100%</span><button class="zoom-btn" onclick="changeZoom(10)"><i class="fas fa-search-plus"></i></button></div></div></div>
+<div id="settings-overlay" class="sp-overlay" onclick="closeSettings()"></div>
+<nav id="nav"><div class="nav-inner"><a class="nav-logo" href="index.html"><span class="logo-k">Kushal</span><span class="logo-dot">.</span><span class="logo-slogan">IT Developer &amp; Designer</span></a><ul class="nav-links" id="navL"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="family.html">Family</a></li><li><a href="skills.html">Skills</a></li><li><a href="projects.html" class="active">Projects</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="quiz.html">Quiz</a></li><li><a href="fun.html">Fun Zone</a></li><li><a href="cv.html">CV</a></li><li><a href="contact.html">Contact</a></li></ul><div class="nav-actions"><div class="nav-auth"><a href="login.html" class="nav-auth-btn nav-auth-login">Login</a><a href="signup.html" class="nav-auth-btn nav-auth-signup">Sign Up</a></div><button class="nav-icon-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button><button class="hamburger" id="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div></nav>
+<div class="marquee-wrap"><div class="marquee-track" id="marqueeTrack"></div></div>
+<main>
+<div class="page-hero"><div class="page-hero-inner"><div class="page-hero-tag">// My Work</div><h1 class="page-hero-title">Projects I've <em>Built</em></h1><p class="page-hero-desc">A record of everything I've created — from design to code, from school projects to real systems.</p><div class="page-hero-line"></div></div></div>
+<section class="projects-section"><div class="projects-inner">
+  <div class="reveal" style="margin-bottom:1rem"><div class="sec-tag">// All Projects</div><h2 class="sec-title">My <em>Portfolio</em></h2><div class="sec-line"></div></div>
+  <div class="projects-grid">
+    <div class="pcard reveal">
+      <div class="pcard-top">
+        <div class="pcard-icon">🎨</div>
+        <div class="pcard-class">Class 9T</div>
+        <div class="pcard-year">2079 BS</div>
+        <div class="pcard-title">Festive Graphic Design Collection</div>
+        <div class="pcard-desc">A collection of digital graphic design work created during Class 9 IT studies, focused on festive and cultural themes.</div>
+        <div class="pcard-what"><div class="pcard-what-title">What was built:</div><ul class="pcard-list"><li>Holi festival digital poster with vibrant color splashes</li><li>Dashain celebration banner with traditional motifs</li><li>Typography-based festival greetings</li><li>Social media ready graphics for sharing</li></ul></div>
+      </div>
+      <div class="pcard-bottom"><div class="pcard-tags"><span class="ptag">Graphic Design</span><span class="ptag">Poster Art</span><span class="ptag">Holi</span><span class="ptag">Dashain</span><span class="ptag">Typography</span></div></div>
+    </div>
+    <div class="pcard reveal">
+      <div class="pcard-top">
+        <div class="pcard-icon">🏨</div>
+        <div class="pcard-class">Class 10T</div>
+        <div class="pcard-year">2080 BS</div>
+        <div class="pcard-title">Hotel Management Website</div>
+        <div class="pcard-desc">A fully functional hotel management web application with an admin panel, customer-facing booking system, and billing management.</div>
+        <div class="pcard-what"><div class="pcard-what-title">What was built:</div><ul class="pcard-list"><li>Room listing and availability system</li><li>Customer registration & booking form</li><li>Admin dashboard for managing reservations</li><li>Invoice and billing generation module</li><li>Responsive UI with CSS styling</li></ul></div>
+      </div>
+      <div class="pcard-bottom"><div class="pcard-tags"><span class="ptag">HTML</span><span class="ptag">CSS</span><span class="ptag">JavaScript</span><span class="ptag">Database</span><span class="ptag">Web Dev</span></div></div>
+    </div>
+    <div class="pcard reveal">
+      <div class="pcard-top">
+        <div class="pcard-icon">🔐</div>
+        <div class="pcard-class">Class 11T</div>
+        <div class="pcard-year">2081 BS</div>
+        <div class="pcard-title">Cybersecurity & Social Engineering Demo</div>
+        <div class="pcard-desc">Educational project exploring social engineering tools and ethical phishing attack simulation for cybersecurity awareness training.</div>
+        <div class="pcard-what"><div class="pcard-what-title">What was built:</div><ul class="pcard-list"><li>Social engineering toolkit setup & demo</li><li>Phishing awareness simulation (ethical)</li><li>Security awareness documentation</li><li>Presentation on digital threat prevention</li></ul></div>
+      </div>
+      <div class="pcard-bottom"><div class="pcard-tags"><span class="ptag">Cybersecurity</span><span class="ptag">Social Engineering</span><span class="ptag">Phishing</span><span class="ptag">Kali Linux</span></div></div>
+    </div>
+    <div class="pcard reveal">
+      <div class="pcard-top">
+        <div class="pcard-icon">🧮</div>
+        <div class="pcard-class">Class 11T</div>
+        <div class="pcard-year">2081 BS</div>
+        <div class="pcard-title">Calculator Application (Java)</div>
+        <div class="pcard-desc">A fully functional desktop calculator built with Java, featuring a clean GUI and standard arithmetic operations.</div>
+        <div class="pcard-what"><div class="pcard-what-title">What was built:</div><ul class="pcard-list"><li>Arithmetic operations (add, subtract, multiply, divide)</li><li>Graphical user interface with Java Swing</li><li>Error handling for invalid operations</li><li>History of calculations</li></ul></div>
+      </div>
+      <div class="pcard-bottom"><div class="pcard-tags"><span class="ptag">Java</span><span class="ptag">Java Swing</span><span class="ptag">OOP</span><span class="ptag">Desktop App</span></div></div>
+    </div>
+    <div class="pcard reveal">
+      <div class="pcard-top">
+        <div class="pcard-icon">📱</div>
+        <div class="pcard-class">Class 11T</div>
+        <div class="pcard-year">2081 BS</div>
+        <div class="pcard-title">Android Mobile Application</div>
+        <div class="pcard-desc">A complete Android mobile app developed using Java and Android Studio, focused on a practical real-world use case.</div>
+        <div class="pcard-what"><div class="pcard-what-title">What was built:</div><ul class="pcard-list"><li>User-friendly Android interface (XML layouts)</li><li>Java-based business logic and data handling</li><li>Multiple activity navigation</li><li>APK build and device testing</li></ul></div>
+      </div>
+      <div class="pcard-bottom"><div class="pcard-tags"><span class="ptag">Java</span><span class="ptag">Android</span><span class="ptag">Android Studio</span><span class="ptag">Mobile Dev</span></div></div>
+    </div>
+    <div class="pcard-featured reveal">
+      <div class="pcf-glow"></div>
+      <div class="pcf-inner">
+        <div>
+          <div class="pcf-top-row">
+            <span class="pcf-badge-live"><span class="dot"></span> Completed</span>
+            <div class="pcf-platforms">
+              <div class="pcf-plat" title="Web App"><i class="fas fa-globe"></i></div>
+              <div class="pcf-plat" title="Desktop App"><i class="fas fa-desktop"></i></div>
+            </div>
+          </div>
+          <div class="pcf-icon-big">🏫</div>
+          <div class="pcf-class">Class 12T · 2082 BS — Completed</div>
+          <h3 class="pcf-title">School Management <em>System</em></h3>
+          <p class="pcf-desc">A complete School Management System available as a <strong>Web App</strong> and <strong>Desktop App</strong> — built to handle everything a school needs digitally, from admissions to results, with a clean, welcoming interface.</p>
+
+          <div class="pcf-features-grid">
+            <div class="pcf-feat"><div class="pcf-feat-icon"><i class="fas fa-user-shield"></i></div><div class="pcf-feat-name">Role-Based Access</div><div class="pcf-feat-desc">Separate dashboards for Admin, Teachers, Students & Parents.</div></div>
+            <div class="pcf-feat"><div class="pcf-feat-icon"><i class="fas fa-calendar-check"></i></div><div class="pcf-feat-name">Attendance Tracking</div><div class="pcf-feat-desc">Digital daily attendance with automatic reports.</div></div>
+            <div class="pcf-feat"><div class="pcf-feat-icon"><i class="fas fa-file-invoice-dollar"></i></div><div class="pcf-feat-name">Fee Management</div><div class="pcf-feat-desc">Online fee tracking, receipts, and due reminders.</div></div>
+            <div class="pcf-feat"><div class="pcf-feat-icon"><i class="fas fa-chart-line"></i></div><div class="pcf-feat-name">Result System</div><div class="pcf-feat-desc">Marks entry, grade calculation, digital report cards.</div></div>
+            <div class="pcf-feat"><div class="pcf-feat-icon"><i class="fas fa-bell"></i></div><div class="pcf-feat-name">Notice Board</div><div class="pcf-feat-desc">Real-time announcements to students & parents.</div></div>
+            <div class="pcf-feat"><div class="pcf-feat-icon"><i class="fas fa-comments"></i></div><div class="pcf-feat-name">Messaging</div><div class="pcf-feat-desc">In-app chat between teachers, students & admin.</div></div>
+          </div>
+
+          <div class="pcf-tags">
+            <span class="ptag">Web App</span><span class="ptag">Desktop App</span><span class="ptag">Java</span><span class="ptag">MySQL</span><span class="ptag">HTML/CSS/JS</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="pcf-side-title">// User Roles</div>
+          <div class="pcf-role-list">
+            <div class="pcf-role"><div class="pcf-role-icon"><i class="fas fa-user-tie"></i></div><div class="pcf-role-text"><b>Admin</b><span>Manages the entire school system & data</span></div></div>
+            <div class="pcf-role"><div class="pcf-role-icon"><i class="fas fa-chalkboard-teacher"></i></div><div class="pcf-role-text"><b>Teacher</b><span>Attendance, results & class management</span></div></div>
+            <div class="pcf-role"><div class="pcf-role-icon"><i class="fas fa-user-graduate"></i></div><div class="pcf-role-text"><b>Student</b><span>View results, attendance & notices</span></div></div>
+            <div class="pcf-role"><div class="pcf-role-icon"><i class="fas fa-user-friends"></i></div><div class="pcf-role-text"><b>Parent</b><span>Track child's progress & fee status</span></div></div>
+          </div>
+          <div class="pcf-side-title">// Platforms</div>
+          <div class="pcf-stack">
+            <div class="pcf-stack-item"><i class="fas fa-globe"></i> Web (Browser)</div>
+            <div class="pcf-stack-item"><i class="fas fa-desktop"></i> Windows Desktop</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+</main>
+<footer id="footer"></footer><div id="chatbot-root"></div>
+<script src="auth.js"></script>
+<script src="shared.js"></script>
+</body></html>

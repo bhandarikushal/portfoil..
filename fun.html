@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fun Zone | Kushal Bhandari</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+.fun-section{padding:5rem 2rem;}
+.fun-inner{max-width:900px;margin:0 auto;}
+.fun-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem;}
+.fun-card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:24px;padding:2.4rem;text-align:center;position:relative;overflow:hidden;transition:all 0.35s;}
+.fun-card:hover{border-color:var(--accent1);box-shadow:0 25px 60px var(--accent1-glow);transform:translateY(-6px);}
+.fun-icon{font-size:2.6rem;margin-bottom:1rem;}
+.fun-card-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.3rem;color:var(--text-primary);margin-bottom:0.6rem;}
+.fun-card-desc{font-size:0.88rem;color:var(--text-muted);margin-bottom:1.6rem;line-height:1.7;}
+.fun-display{background:var(--alt-bg);border:1.5px solid var(--border);border-radius:16px;padding:1.6rem 1.4rem;min-height:110px;display:flex;align-items:center;justify-content:center;margin-bottom:1.4rem;transition:all 0.3s;}
+.fun-display p{font-size:1rem;color:var(--text-primary);line-height:1.7;font-family:'Syne',sans-serif;font-weight:600;}
+.fun-display.pulse{animation:funPulse 0.4s ease;}
+@keyframes funPulse{0%{transform:scale(0.97);opacity:0.5}100%{transform:scale(1);opacity:1}}
+.fun-counter{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-muted);margin-top:0.6rem;}
+@media(max-width:750px){.fun-grid{grid-template-columns:1fr;}}
+.share-row{display:flex;gap:0.6rem;justify-content:center;margin-top:1rem;}
+.share-btn{width:38px;height:38px;border-radius:10px;background:var(--accent1-bg);border:1px solid var(--accent1);color:var(--accent1);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;font-size:0.9rem;}
+.share-btn:hover{background:var(--accent1);color:#fff;}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-box"><div class="loader-photo-wrap"><div class="loader-photo-ring2" aria-hidden="true"></div><div class="loader-photo-ring" aria-hidden="true"></div><img src="photos/loader.jpg" alt="Kushal Bhandari with his bike" class="loader-photo"></div><div class="loader-name">Kushal <span class="ln-last">Bhandari</span><span class="loader-dot">.</span></div><div class="loader-slogan-wrap"><span class="loader-slogan">Turning Ideas Into Digital Reality</span></div><div class="loader-bar-wrap"><div class="loader-bar"></div></div><div class="loader-sub">Loading some fun...</div><div class="ld"><span></span><span></span><span></span></div></div></div>
+<canvas id="particles"></canvas>
+<div class="cursor-dot" id="cDot"></div><div class="cursor-ring" id="cRing"></div>
+<div id="settings-panel" class="settings-panel"><div class="sp-header"><span><i class="fas fa-sliders-h"></i> Settings</span><button onclick="closeSettings()"><i class="fas fa-times"></i></button></div><div class="sp-section"><div class="sp-label">Theme</div><div class="theme-btns"><button class="t-btn active" id="darkBtn" onclick="setTheme('dark')"><i class="fas fa-moon"></i> Dark</button><button class="t-btn" id="lightBtn" onclick="setTheme('light')"><i class="fas fa-sun"></i> Light</button></div></div><div class="sp-section"><div class="sp-label">Accent Color</div><div class="color-picks"><button class="c-pick active" style="--c:#00f5ff" data-color="cyan" onclick="setColor('cyan',this)"></button><button class="c-pick" style="--c:#7b2fff" data-color="purple" onclick="setColor('purple',this)"></button><button class="c-pick" style="--c:#ff006e" data-color="pink" onclick="setColor('pink',this)"></button><button class="c-pick" style="--c:#00e676" data-color="green" onclick="setColor('green',this)"></button><button class="c-pick" style="--c:#ff9100" data-color="orange" onclick="setColor('orange',this)"></button></div></div><div class="sp-section"><div class="sp-label">Font Size</div><div class="zoom-row"><button class="zoom-btn" onclick="changeZoom(-10)"><i class="fas fa-search-minus"></i></button><span id="zoomVal">100%</span><button class="zoom-btn" onclick="changeZoom(10)"><i class="fas fa-search-plus"></i></button></div></div></div>
+<div id="settings-overlay" class="sp-overlay" onclick="closeSettings()"></div>
+<nav id="nav"><div class="nav-inner"><a class="nav-logo" href="index.html"><span class="logo-k">Kushal</span><span class="logo-dot">.</span><span class="logo-slogan">IT Developer &amp; Designer</span></a><ul class="nav-links" id="navL"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="family.html">Family</a></li><li><a href="skills.html">Skills</a></li><li><a href="projects.html">Projects</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="quiz.html">Quiz</a></li><li><a href="fun.html" class="active">Fun Zone</a></li><li><a href="cv.html">CV</a></li><li><a href="contact.html">Contact</a></li></ul><div class="nav-actions"><div class="nav-auth"><a href="login.html" class="nav-auth-btn nav-auth-login">Login</a><a href="signup.html" class="nav-auth-btn nav-auth-signup">Sign Up</a></div><button class="nav-icon-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button><button class="hamburger" id="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div></nav>
+<div class="marquee-wrap"><div class="marquee-track" id="marqueeTrack"></div></div>
+<main>
+<div class="page-hero"><div class="page-hero-inner"><div class="page-hero-tag">// Take a Break</div><h1 class="page-hero-title">Welcome to the <em>Fun Zone</em></h1><p class="page-hero-desc">Code can wait a second — here's a laugh and a little motivation for the road ahead.</p><div class="page-hero-line"></div></div></div>
+
+<section class="fun-section"><div class="fun-inner">
+  <div class="reveal"><div class="sec-tag">// Just For Fun</div><h2 class="sec-title">Jokes & <em>Motivation</em></h2><div class="sec-line"></div></div>
+
+  <div class="fun-grid">
+    <div class="fun-card reveal">
+      <div class="fun-icon">😂</div>
+      <div class="fun-card-title">Random Joke</div>
+      <div class="fun-card-desc">Mostly programmer & IT-student humor. Tap for a fresh one.</div>
+      <div class="fun-display" id="jokeBox"><p id="jokeText">Tap the button below for a joke 👇</p></div>
+      <button class="btn btn-fill" onclick="newJoke()"><i class="fas fa-dice"></i> Tell Me a Joke</button>
+      <div class="fun-counter" id="jokeCounter">0 jokes told</div>
+    </div>
+
+    <div class="fun-card reveal">
+      <div class="fun-icon">🔥</div>
+      <div class="fun-card-title">Motivation Boost</div>
+      <div class="fun-card-desc">A quick line to keep you going — for coding, studying, or life in general.</div>
+      <div class="fun-display" id="quoteBox"><p id="quoteText">Tap the button below for some motivation 👇</p></div>
+      <button class="btn btn-fill" onclick="newQuote()"><i class="fas fa-bolt"></i> Motivate Me</button>
+      <div class="fun-counter" id="quoteCounter">0 quotes shown</div>
+    </div>
+  </div>
+
+  <div class="fun-card reveal" style="margin-top:2rem;">
+    <div class="fun-icon">🎲</div>
+    <div class="fun-card-title">Feeling Lucky?</div>
+    <div class="fun-card-desc">One tap gives you either a joke or a motivational line — total surprise.</div>
+    <div class="fun-display" id="mixBox"><p id="mixText">Tap below and see what you get!</p></div>
+    <button class="btn btn-ghost" onclick="surpriseMe()"><i class="fas fa-shuffle"></i> Surprise Me</button>
+  </div>
+</div></section>
+</main>
+<footer id="footer"></footer>
+<div id="chatbot-root"></div>
+<script src="auth.js"></script>
+<script src="shared.js"></script>
+<script>
+const JOKES = [
+  "Why do programmers prefer dark mode? Because light attracts bugs 🐛.",
+  "I told my Wi-Fi router a joke... no response. Bad connection, I guess.",
+  "Why did the network engineer bring a ladder to work? To reach the higher-level protocols.",
+  "My code doesn't have bugs — it just develops random features.",
+  "Why was the JavaScript developer sad? Because he didn't 'null' his feelings.",
+  "I put my code in production... and it went into 'see you next semester' mode.",
+  "Why do Java developers wear glasses? Because they don't C#.",
+  "A CSS rule walks into a bar. Bartender says, 'we don't serve your class here.'",
+  "I told my computer I needed a break. Now it won't stop sending me 'KitKat' ads.",
+  "Why did the student bring a laptop to bed? To catch some REM... sleep and code both.",
+  "How does a router say goodbye? 'Cache' ya later!",
+  "There are only 10 types of people: those who understand binary and those who don't.",
+  "Why don't Android apps ever get lonely? They always have their activities.",
+  "My exam syllabus and my motivation have a poor connection — 404, motivation not found.",
+  "Why did the poster designer stay calm during Dashain rush week? He had layers... of patience."
+];
+
+const QUOTES = [
+  "Every expert was once a beginner who refused to give up.",
+  "Small consistent steps beat big irregular leaps — keep building daily.",
+  "You don't need to be great to start, but you need to start to be great.",
+  "The hills of Gulmi taught you patience — let that carry into every project.",
+  "One line of code today is one step closer to the app of tomorrow.",
+  "Discipline is choosing between what you want now and what you want most.",
+  "Every error message is just your computer asking you to think a little harder.",
+  "Your only competition is who you were yesterday.",
+  "Learning networking, security, design, and code all at once? That's not overwhelm — that's range.",
+  "Class 12 is a chapter, not the whole book. Keep writing.",
+  "Progress over perfection — ship it, then improve it.",
+  "The best project you'll ever build is the one you actually finish."
+];
+
+let jokeIdx = -1, quoteIdx = -1, jokeCount = 0, quoteCount = 0;
+
+function pulse(el){ el.classList.remove('pulse'); void el.offsetWidth; el.classList.add('pulse'); }
+
+function randomIndex(len, exclude){
+  if (len <= 1) return 0;
+  let i;
+  do { i = Math.floor(Math.random() * len); } while (i === exclude);
+  return i;
+}
+
+function newJoke(){
+  jokeIdx = randomIndex(JOKES.length, jokeIdx);
+  document.getElementById('jokeText').textContent = JOKES[jokeIdx];
+  pulse(document.getElementById('jokeBox'));
+  jokeCount++;
+  document.getElementById('jokeCounter').textContent = `${jokeCount} joke${jokeCount === 1 ? '' : 's'} told`;
+}
+
+function newQuote(){
+  quoteIdx = randomIndex(QUOTES.length, quoteIdx);
+  document.getElementById('quoteText').textContent = QUOTES[quoteIdx];
+  pulse(document.getElementById('quoteBox'));
+  quoteCount++;
+  document.getElementById('quoteCounter').textContent = `${quoteCount} quote${quoteCount === 1 ? '' : 's'} shown`;
+}
+
+function surpriseMe(){
+  const box = document.getElementById('mixBox');
+  const text = document.getElementById('mixText');
+  if (Math.random() < 0.5) {
+    text.textContent = "😂 " + JOKES[randomIndex(JOKES.length)];
+  } else {
+    text.textContent = "🔥 " + QUOTES[randomIndex(QUOTES.length)];
+  }
+  pulse(box);
+}
+</script>
+</body></html>

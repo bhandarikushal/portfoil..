@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery | Kushal Bhandari</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+.gallery-section{padding:5rem 2rem;}
+.gallery-inner{max-width:1100px;margin:0 auto;}
+.masonry{columns:3;column-gap:1.2rem;margin-top:3rem;}
+.gitem{break-inside:avoid;margin-bottom:1.2rem;border-radius:18px;overflow:hidden;border:1.5px solid var(--border);position:relative;cursor:pointer;transition:all 0.35s;}
+.gitem:hover{border-color:var(--accent1);box-shadow:0 15px 50px var(--accent1-glow);}
+.gitem img{width:100%;display:block;transition:transform 0.5s ease;}
+.gitem:hover img{transform:scale(1.05);}
+.g-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.75) 0%,transparent 55%);opacity:0;transition:opacity 0.35s;display:flex;align-items:flex-end;padding:1.2rem;}
+.gitem:hover .g-overlay{opacity:1;}
+.g-caption{color:#fff;font-size:0.88rem;font-weight:700;font-family:'Syne',sans-serif;}
+/* LIGHTBOX */
+#lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+#lightbox.show{display:flex;}
+#lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:16px;border:2px solid var(--border);}
+#lb-close{position:absolute;top:1.5rem;right:2rem;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;z-index:1;}
+#lb-prev,#lb-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:1.5rem;cursor:pointer;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(5px);transition:all 0.3s;}
+#lb-prev{left:1.5rem;}#lb-next{right:1.5rem;}
+#lb-prev:hover,#lb-next:hover{background:var(--accent1);color:var(--bg);}
+@media(max-width:700px){.masonry{columns:2;}}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-box"><div class="loader-photo-wrap"><div class="loader-photo-ring2" aria-hidden="true"></div><div class="loader-photo-ring" aria-hidden="true"></div><img src="photos/loader.jpg" alt="Kushal Bhandari with his bike" class="loader-photo"></div><div class="loader-name">Kushal <span class="ln-last">Bhandari</span><span class="loader-dot">.</span></div><div class="loader-slogan-wrap"><span class="loader-slogan">Turning Ideas Into Digital Reality</span></div><div class="loader-bar-wrap"><div class="loader-bar"></div></div><div class="loader-sub">Loading gallery...</div><div class="ld"><span></span><span></span><span></span></div></div></div>
+<canvas id="particles"></canvas><div class="cursor-dot" id="cDot"></div><div class="cursor-ring" id="cRing"></div>
+<div id="settings-panel" class="settings-panel"><div class="sp-header"><span><i class="fas fa-sliders-h"></i> Settings</span><button onclick="closeSettings()"><i class="fas fa-times"></i></button></div><div class="sp-section"><div class="sp-label">Theme</div><div class="theme-btns"><button class="t-btn active" id="darkBtn" onclick="setTheme('dark')"><i class="fas fa-moon"></i> Dark</button><button class="t-btn" id="lightBtn" onclick="setTheme('light')"><i class="fas fa-sun"></i> Light</button></div></div><div class="sp-section"><div class="sp-label">Accent Color</div><div class="color-picks"><button class="c-pick active" style="--c:#00f5ff" data-color="cyan" onclick="setColor('cyan',this)"></button><button class="c-pick" style="--c:#7b2fff" data-color="purple" onclick="setColor('purple',this)"></button><button class="c-pick" style="--c:#ff006e" data-color="pink" onclick="setColor('pink',this)"></button><button class="c-pick" style="--c:#00e676" data-color="green" onclick="setColor('green',this)"></button><button class="c-pick" style="--c:#ff9100" data-color="orange" onclick="setColor('orange',this)"></button></div></div><div class="sp-section"><div class="sp-label">Font Size</div><div class="zoom-row"><button class="zoom-btn" onclick="changeZoom(-10)"><i class="fas fa-search-minus"></i></button><span id="zoomVal">100%</span><button class="zoom-btn" onclick="changeZoom(10)"><i class="fas fa-search-plus"></i></button></div></div></div>
+<div id="settings-overlay" class="sp-overlay" onclick="closeSettings()"></div>
+<nav id="nav"><div class="nav-inner"><a class="nav-logo" href="index.html"><span class="logo-k">Kushal</span><span class="logo-dot">.</span><span class="logo-slogan">IT Developer &amp; Designer</span></a><ul class="nav-links" id="navL"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="family.html">Family</a></li><li><a href="skills.html">Skills</a></li><li><a href="projects.html">Projects</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html" class="active">Gallery</a></li><li><a href="quiz.html">Quiz</a></li><li><a href="fun.html">Fun Zone</a></li><li><a href="cv.html">CV</a></li><li><a href="contact.html">Contact</a></li></ul><div class="nav-actions"><div class="nav-auth"><a href="login.html" class="nav-auth-btn nav-auth-login">Login</a><a href="signup.html" class="nav-auth-btn nav-auth-signup">Sign Up</a></div><button class="nav-icon-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button><button class="hamburger" id="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div></nav>
+<div class="marquee-wrap"><div class="marquee-track" id="marqueeTrack"></div></div>
+<div id="lightbox"><button id="lb-close" onclick="closeLB()"><i class="fas fa-times"></i></button><button id="lb-prev" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button><img id="lb-img" src="" alt=""><button id="lb-next" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button></div>
+<main>
+<div class="page-hero"><div class="page-hero-inner"><div class="page-hero-tag">// Photo Gallery</div><h1 class="page-hero-title">Moments & <em>Memories</em></h1><p class="page-hero-desc">A glimpse into my life beyond the screen — adventures, culture, and smiles from Nepal.</p><div class="page-hero-line"></div></div></div>
+<section class="gallery-section"><div class="gallery-inner">
+  <div class="reveal" style="margin-bottom:0.5rem"><div class="sec-tag">// My Photos</div><h2 class="sec-title">Visual <em>Journey</em></h2><div class="sec-line"></div></div>
+  <div class="masonry" id="masonry">
+    <div class="gitem reveal" onclick="openLB(0)"><img src="photos/img4.jpg" alt="Kushal Formal Portrait"><div class="g-overlay"><div class="g-caption">🎓 Formal Portrait</div></div></div>
+    <div class="gitem reveal" onclick="openLB(1)"><img src="photos/img1.jpg" alt="Kushal with his bike"><div class="g-overlay"><div class="g-caption">🏍️ Me & My Ride</div></div></div>
+    <div class="gitem reveal" onclick="openLB(2)"><img src="photos/img2.jpg" alt="Kushal roadside with bike"><div class="g-overlay"><div class="g-caption">📸 Roadside Stop</div></div></div>
+    <div class="gitem reveal" onclick="openLB(3)"><img src="photos/img5.jpg" alt="Phewa Lake Pokhara"><div class="g-overlay"><div class="g-caption">🚣 Phewa Lake, Pokhara</div></div></div>
+    <div class="gitem reveal" onclick="openLB(4)"><img src="photos/ride-street.jpg" alt="Kushal's bike on a Pokhara street"><div class="g-overlay"><div class="g-caption">🏍️ Street Ride</div></div></div>
+    <div class="gitem reveal" onclick="openLB(5)"><img src="photos/flower-garden.jpg" alt="Kushal by a flowering tree"><div class="g-overlay"><div class="g-caption">🌸 Flower Garden</div></div></div>
+    <div class="gitem reveal" onclick="openLB(6)"><img src="photos/hilltop-view.jpg" alt="Kushal on his bike overlooking the city"><div class="g-overlay"><div class="g-caption">🏙️ City View Ride</div></div></div>
+    <div class="gitem reveal" onclick="openLB(7)"><img src="photos/forest-road.jpg" alt="On a forest road with the bike"><div class="g-overlay"><div class="g-caption">🌲 Forest Road</div></div></div>
+    <div class="gitem reveal" onclick="openLB(8)"><img src="photos/family-trip.jpg" alt="Family trip to a stupa"><div class="g-overlay"><div class="g-caption">🙏 Family Trip</div></div></div>
+    <div class="gitem reveal" onclick="openLB(9)"><img src="photos/mountain-getaway.jpg" alt="A couple on a mountain getaway"><div class="g-overlay"><div class="g-caption">⛰️ Mountain Getaway</div></div></div>
+    <div class="gitem reveal" onclick="openLB(10)"><img src="photos/temple-visit.jpg" alt="Kushal visiting a temple"><div class="g-overlay"><div class="g-caption">🛕 Temple Visit</div></div></div>
+    <div class="gitem reveal" onclick="openLB(11)"><img src="photos/mountain-bridge.jpg" alt="Kushal overlooking a suspension bridge in the hills"><div class="g-overlay"><div class="g-caption">🌉 Hills &amp; Suspension Bridge</div></div></div>
+  </div>
+</div></section>
+</main>
+<footer id="footer"></footer><div id="chatbot-root"></div>
+<script src="auth.js"></script>
+<script src="shared.js"></script>
+<script>
+const lbImgs=['photos/img4.jpg','photos/img1.jpg','photos/img2.jpg','photos/img5.jpg','photos/ride-street.jpg','photos/flower-garden.jpg','photos/hilltop-view.jpg','photos/forest-road.jpg','photos/family-trip.jpg','photos/mountain-getaway.jpg','photos/temple-visit.jpg','photos/mountain-bridge.jpg'];
+let lbIdx=0;
+function openLB(i){lbIdx=i;document.getElementById('lb-img').src=lbImgs[i];document.getElementById('lightbox').classList.add('show');}
+function closeLB(){document.getElementById('lightbox').classList.remove('show');}
+function lbNav(d){lbIdx=(lbIdx+d+lbImgs.length)%lbImgs.length;document.getElementById('lb-img').src=lbImgs[lbIdx];}
+document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this)closeLB();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB();if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='ArrowRight')lbNav(1);});
+</script>
+</body></html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up | Kushal Bhandari</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+.auth-section{padding:5rem 2rem;min-height:80vh;display:flex;align-items:center;}
+.auth-wrap{max-width:1000px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;border-radius:28px;overflow:hidden;border:1.5px solid var(--border);box-shadow:0 30px 90px var(--shadow);}
+.auth-brand{background:linear-gradient(180deg,rgba(20,0,35,0.35) 0%,rgba(20,0,35,0.25) 45%,rgba(20,0,35,0.82) 100%),url('photos/ride-nepal.jpg') center 15%/cover no-repeat;padding:3.5rem 2.8rem;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;color:#fff;}
+.auth-brand-logo,.auth-brand-title,.auth-brand-desc,.auth-brand-features li{text-shadow:0 2px 12px rgba(0,0,0,0.55);}
+.auth-brand::before{content:'';position:absolute;width:260px;height:260px;background:rgba(255,255,255,0.12);border-radius:50%;top:-90px;right:-90px;animation:pcfFloat 8s ease-in-out infinite;}
+.auth-brand::after{content:'';position:absolute;width:180px;height:180px;background:rgba(255,255,255,0.08);border-radius:50%;bottom:-60px;left:-60px;animation:pcfFloat 10s ease-in-out infinite reverse;}
+.auth-brand-logo{font-family:'Playfair Display',serif;font-weight:900;font-size:1.8rem;position:relative;z-index:1;}
+.auth-brand-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;line-height:1.3;margin:2rem 0 1rem;position:relative;z-index:1;}
+.auth-brand-desc{font-size:0.92rem;line-height:1.8;opacity:0.92;position:relative;z-index:1;}
+.auth-brand-features{list-style:none;margin-top:2rem;display:flex;flex-direction:column;gap:0.8rem;position:relative;z-index:1;}
+.auth-brand-features li{display:flex;align-items:center;gap:0.7rem;font-size:0.85rem;font-weight:600;}
+.auth-brand-features li i{width:26px;height:26px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.72rem;}
+.auth-form-col{background:var(--card-bg);padding:3.5rem 2.8rem;display:flex;flex-direction:column;justify-content:center;}
+.auth-tag{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--accent1);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.5rem;}
+.auth-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:var(--text-primary);margin-bottom:0.4rem;}
+.auth-sub{font-size:0.88rem;color:var(--text-muted);margin-bottom:2rem;}
+.auth-field{margin-bottom:1.3rem;position:relative;}
+.auth-field label{display:block;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;}
+.auth-row-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.auth-input-wrap{position:relative;}
+.auth-input-wrap i.fa-icon-left{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:0.9rem;}
+.auth-input-wrap input{width:100%;padding:0.85rem 1rem 0.85rem 2.7rem;background:var(--alt-bg);border:1.5px solid var(--border);border-radius:12px;color:var(--text-primary);font-size:0.92rem;font-family:'Syne',sans-serif;transition:all 0.3s;}
+.auth-input-wrap input:focus{outline:none;border-color:var(--accent1);box-shadow:0 0 0 3px var(--accent1-glow);}
+.auth-toggle-pass{position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:0.9rem;}
+.auth-toggle-pass:hover{color:var(--accent1);}
+.auth-strength{display:flex;gap:0.3rem;margin-top:0.6rem;}
+.auth-strength span{flex:1;height:4px;border-radius:4px;background:var(--border);}
+.auth-terms{display:flex;align-items:flex-start;gap:0.6rem;margin:1.4rem 0 1.6rem;font-size:0.82rem;color:var(--text-muted);}
+.auth-terms input{margin-top:0.2rem;accent-color:var(--accent1);}
+.auth-terms a{color:var(--accent1);text-decoration:none;font-weight:700;}
+.auth-terms a:hover{text-decoration:underline;}
+.auth-error{display:none;background:rgba(255,92,122,0.1);border:1px solid #ff5c7a;color:#ff5c7a;font-size:0.82rem;padding:0.7rem 0.9rem;border-radius:10px;margin-bottom:1.2rem;}
+.auth-error:not(:empty){display:block;}
+.auth-submit{width:100%;padding:0.95rem;border:none;border-radius:12px;background:linear-gradient(135deg,var(--accent1),var(--accent2));color:#fff;font-family:'Syne',sans-serif;font-weight:800;font-size:0.95rem;cursor:pointer;transition:all 0.3s;box-shadow:0 10px 30px var(--accent1-glow);}
+.auth-submit:disabled{opacity:0.7;cursor:not-allowed;}
+.auth-submit:hover{transform:translateY(-2px);box-shadow:0 15px 40px var(--accent1-glow);}
+.auth-divider{display:flex;align-items:center;gap:1rem;margin:1.6rem 0;color:var(--text-muted);font-size:0.78rem;}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.auth-social{display:flex;gap:0.8rem;margin-bottom:1.6rem;}
+.auth-social-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:0.6rem;padding:0.75rem;border:1.5px solid var(--border);border-radius:12px;background:var(--alt-bg);color:var(--text-primary);font-size:0.85rem;font-weight:700;cursor:pointer;transition:all 0.3s;}
+.auth-social-btn:hover{border-color:var(--accent1);color:var(--accent1);transform:translateY(-2px);}
+.auth-switch{text-align:center;font-size:0.88rem;color:var(--text-muted);}
+.auth-switch a{color:var(--accent1);font-weight:700;text-decoration:none;}
+.auth-switch a:hover{text-decoration:underline;}
+@media(max-width:800px){.auth-wrap{grid-template-columns:1fr;}.auth-brand{padding:2.5rem;}.auth-form-col{padding:2.5rem;}.auth-row-2{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-box"><div class="loader-photo-wrap"><div class="loader-photo-ring2" aria-hidden="true"></div><div class="loader-photo-ring" aria-hidden="true"></div><img src="photos/loader.jpg" alt="Kushal Bhandari with his bike" class="loader-photo"></div><div class="loader-name">Kushal <span class="ln-last">Bhandari</span><span class="loader-dot">.</span></div><div class="loader-slogan-wrap"><span class="loader-slogan">Turning Ideas Into Digital Reality</span></div><div class="loader-bar-wrap"><div class="loader-bar"></div></div><div class="loader-sub">Loading...</div><div class="ld"><span></span><span></span><span></span></div></div></div>
+<canvas id="particles"></canvas>
+<div class="cursor-dot" id="cDot"></div><div class="cursor-ring" id="cRing"></div>
+<div id="settings-panel" class="settings-panel"><div class="sp-header"><span><i class="fas fa-sliders-h"></i> Settings</span><button onclick="closeSettings()"><i class="fas fa-times"></i></button></div><div class="sp-section"><div class="sp-label">Theme</div><div class="theme-btns"><button class="t-btn active" id="darkBtn" onclick="setTheme('dark')"><i class="fas fa-moon"></i> Dark</button><button class="t-btn" id="lightBtn" onclick="setTheme('light')"><i class="fas fa-sun"></i> Light</button></div></div><div class="sp-section"><div class="sp-label">Accent Color</div><div class="color-picks"><button class="c-pick active" style="--c:#00f5ff" data-color="cyan" onclick="setColor('cyan',this)"></button><button class="c-pick" style="--c:#7b2fff" data-color="purple" onclick="setColor('purple',this)"></button><button class="c-pick" style="--c:#ff006e" data-color="pink" onclick="setColor('pink',this)"></button><button class="c-pick" style="--c:#00e676" data-color="green" onclick="setColor('green',this)"></button><button class="c-pick" style="--c:#ff9100" data-color="orange" onclick="setColor('orange',this)"></button></div></div><div class="sp-section"><div class="sp-label">Font Size</div><div class="zoom-row"><button class="zoom-btn" onclick="changeZoom(-10)"><i class="fas fa-search-minus"></i></button><span id="zoomVal">100%</span><button class="zoom-btn" onclick="changeZoom(10)"><i class="fas fa-search-plus"></i></button></div></div></div>
+<div id="settings-overlay" class="sp-overlay" onclick="closeSettings()"></div>
+<nav id="nav"><div class="nav-inner"><a class="nav-logo" href="index.html"><span class="logo-k">Kushal</span><span class="logo-dot">.</span><span class="logo-slogan">IT Developer &amp; Designer</span></a><ul class="nav-links" id="navL"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="family.html">Family</a></li><li><a href="skills.html">Skills</a></li><li><a href="projects.html">Projects</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="quiz.html">Quiz</a></li><li><a href="fun.html">Fun Zone</a></li><li><a href="cv.html">CV</a></li><li><a href="contact.html">Contact</a></li></ul><div class="nav-actions"><div class="nav-auth"><a href="login.html" class="nav-auth-btn nav-auth-login">Login</a><a href="signup.html" class="nav-auth-btn nav-auth-signup active">Sign Up</a></div><button class="nav-icon-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button><button class="hamburger" id="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div></nav>
+<div class="marquee-wrap"><div class="marquee-track" id="marqueeTrack"></div></div>
+<main>
+<section class="auth-section"><div class="auth-wrap reveal">
+  <div class="auth-brand">
+    <div class="auth-brand-logo">Kushal<span style="opacity:0.7">.</span></div>
+    <div>
+      <div class="auth-brand-title">Join & Be Part of the Journey</div>
+      <div class="auth-brand-desc">Create a free account to save projects, reach out faster, and stay updated as new builds — like the School Management System — keep growing.</div>
+      <ul class="auth-brand-features">
+        <li><i class="fas fa-check"></i> Quick, one-time registration</li>
+        <li><i class="fas fa-check"></i> Personalized dashboard access</li>
+        <li><i class="fas fa-check"></i> Priority replies on contact form</li>
+      </ul>
+    </div>
+    <div style="font-size:0.75rem;opacity:0.8;position:relative;z-index:1">© 2082 BS Kushal Bhandari</div>
+  </div>
+  <div class="auth-form-col">
+    <div class="auth-tag">// Create Account</div>
+    <h1 class="auth-title">Sign Up — It's Free</h1>
+    <p class="auth-sub">Fill in your details to get started.</p>
+    <form id="signupForm">
+      <div class="auth-field">
+        <label>Full Name</label>
+        <div class="auth-input-wrap">
+          <i class="fas fa-user fa-icon-left"></i>
+          <input type="text" id="signupName" placeholder="Your full name" required>
+        </div>
+      </div>
+      <div class="auth-field">
+        <label>Email Address</label>
+        <div class="auth-input-wrap">
+          <i class="fas fa-envelope fa-icon-left"></i>
+          <input type="email" id="signupEmail" placeholder="you@example.com" required>
+        </div>
+      </div>
+      <div class="auth-row-2">
+        <div class="auth-field">
+          <label>Password</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-lock fa-icon-left"></i>
+            <input type="password" id="signupPass" placeholder="Create password" required minlength="6" oninput="checkStrength(this.value)">
+            <button type="button" class="auth-toggle-pass" onclick="togglePass('signupPass', this)"><i class="fas fa-eye"></i></button>
+          </div>
+          <div class="auth-strength"><span id="s1"></span><span id="s2"></span><span id="s3"></span></div>
+        </div>
+        <div class="auth-field">
+          <label>Confirm Password</label>
+          <div class="auth-input-wrap">
+            <i class="fas fa-lock fa-icon-left"></i>
+            <input type="password" id="signupPass2" placeholder="Repeat password" required>
+            <button type="button" class="auth-toggle-pass" onclick="togglePass('signupPass2', this)"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+      </div>
+      <label class="auth-terms"><input type="checkbox" required> I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+      <div class="auth-error" id="signupError"></div>
+      <button type="submit" class="auth-submit" id="signupSubmitBtn"><i class="fas fa-user-plus"></i> Create Account</button>
+    </form>
+    <div class="auth-divider">or sign up with</div>
+    <div class="auth-social">
+      <button class="auth-social-btn"><i class="fab fa-google"></i> Google</button>
+      <button class="auth-social-btn"><i class="fab fa-github"></i> GitHub</button>
+    </div>
+    <div class="auth-switch">Already have an account? <a href="login.html">Login here</a></div>
+  </div>
+</div></section>
+</main>
+<footer id="footer"></footer>
+<div id="chatbot-root"></div>
+<script src="auth.js"></script>
+<script src="shared.js"></script>
+<script>
+function togglePass(id, btn){
+  const inp = document.getElementById(id);
+  const icon = btn.querySelector('i');
+  if(inp.type === 'password'){ inp.type = 'text'; icon.classList.remove('fa-eye'); icon.classList.add('fa-eye-slash'); }
+  else { inp.type = 'password'; icon.classList.remove('fa-eye-slash'); icon.classList.add('fa-eye'); }
+}
+function checkStrength(val){
+  const bars = [document.getElementById('s1'), document.getElementById('s2'), document.getElementById('s3')];
+  let score = 0;
+  if(val.length >= 6) score++;
+  if(/[A-Z]/.test(val) && /[0-9]/.test(val)) score++;
+  if(val.length >= 10 && /[^A-Za-z0-9]/.test(val)) score++;
+  const colors = ['#ff3b3b','#ff9100','#00e676'];
+  bars.forEach((b, i) => { b.style.background = i < score ? colors[score-1] : 'var(--border)'; });
+}
+document.getElementById('signupForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const errBox = document.getElementById('signupError');
+  const btn = document.getElementById('signupSubmitBtn');
+  errBox.textContent = '';
+  const name = document.getElementById('signupName').value;
+  const email = document.getElementById('signupEmail').value;
+  const pass = document.getElementById('signupPass').value;
+  const pass2 = document.getElementById('signupPass2').value;
+  if (pass !== pass2) { errBox.textContent = 'Passwords do not match.'; return; }
+  if (pass.length < 6) { errBox.textContent = 'Password must be at least 6 characters.'; return; }
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating account...';
+  const res = await window.KBAuth.signup(name, email, pass);
+  if (!res.ok) {
+    errBox.textContent = res.error;
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+    return;
+  }
+  window.KBAuth.launchWelcomeCelebration(res.user, 'index.html');
+});
+</script>
+</body></html>

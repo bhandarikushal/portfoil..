@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Me | Kushal Bhandari</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+.about-section { padding: 5rem 2rem; }
+.about-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 5rem; align-items: center; }
+.about-img-col { position: relative; }
+.about-main-img { width: 100%; border-radius: 24px; object-fit: cover; object-position: top; aspect-ratio: 0.85; border: 2px solid var(--border); box-shadow: 0 30px 80px var(--shadow), 0 0 60px var(--accent1-glow); }
+.img-badge { position: absolute; bottom: -18px; right: -18px; background: var(--card-bg); border: 2px solid var(--border); border-radius: 16px; padding: 1rem 1.4rem; box-shadow: 0 15px 50px var(--shadow); }
+.img-badge .b-val { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--accent1); }
+.img-badge .b-label { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+.about-text .sec-tag { display: block; margin-bottom: 0.5rem; }
+.about-text .sec-title { margin-bottom: 1.5rem; }
+.about-p { color: var(--text-muted); line-height: 1.9; font-size: 1rem; margin-bottom: 1.2rem; }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+.info-box { background: var(--card-bg); border: 1.5px solid var(--border); border-radius: 14px; padding: 1rem 1.2rem; }
+.ib-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.3rem; }
+.ib-val { font-size: 0.92rem; font-weight: 700; color: var(--text-primary); }
+.timeline-section { background: var(--alt-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 5rem 2rem; }
+.hobbies-section { padding: 5rem 2rem; }
+.hob-inner { max-width: 1100px; margin: 0 auto; }
+.hob-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: 1.3rem; margin: 3rem 0; }
+.hob-card { background: var(--card-bg); border: 1.5px solid var(--border); border-radius: 20px; padding: 1.8rem 1.3rem; text-align: center; transition: all 0.3s; }
+.hob-card:hover { border-color: var(--accent1); transform: translateY(-6px); box-shadow: 0 20px 50px var(--accent1-glow); }
+.hob-icon { font-size: 2.2rem; margin-bottom: 0.7rem; }
+.hob-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--text-primary); }
+.hob-strip { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 1rem; }
+.hob-strip-item { border-radius: 16px; overflow: hidden; border: 1.5px solid var(--border); aspect-ratio: 0.85; position: relative; }
+.hob-strip-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.hob-strip-item:hover img { transform: scale(1.08); }
+@media(max-width:700px){.hob-strip{grid-template-columns:repeat(2,1fr);}}
+.fav-section { padding: 5rem 2rem; background: var(--alt-bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.fav-inner { max-width: 1100px; margin: 0 auto; }
+.fav-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 1.3rem; margin-top: 3rem; }
+.fav-card { background: var(--card-bg); border: 1.5px solid var(--border); border-radius: 20px; padding: 1.6rem 1.5rem; transition: all 0.3s; }
+.fav-card:hover { border-color: var(--accent1); transform: translateY(-6px); box-shadow: 0 20px 50px var(--accent1-glow); }
+.fav-icon { font-size: 1.8rem; margin-bottom: 0.7rem; }
+.fav-label { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--accent1); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.5rem; }
+.fav-val { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; color: var(--text-primary); line-height: 1.5; }
+.tl-wrap { max-width: 850px; margin: 0 auto; }
+.tl-section-intro { margin-bottom: 3rem; }
+.timeline { position: relative; padding-left: 2.5rem; margin-top: 2rem; }
+.timeline::before { content:''; position:absolute; left:0; top:0; bottom:0; width:2px; background:linear-gradient(180deg,var(--accent1),var(--accent2),var(--accent3)); border-radius:2px; }
+.tl-item { position:relative; margin-bottom:2.5rem; padding:1.8rem 2rem; background:var(--card-bg); border:1.5px solid var(--border); border-radius:18px; transition:all 0.3s; }
+.tl-item:hover { border-color:var(--accent1); transform:translateX(8px); box-shadow:0 10px 40px var(--accent1-glow); }
+.tl-dot { position:absolute; left:-3rem; top:1.8rem; width:14px; height:14px; border-radius:50%; background:var(--accent1); box-shadow:0 0 12px var(--accent1); border:3px solid var(--bg); }
+.tl-yr { font-family:'JetBrains Mono',monospace; font-size:0.75rem; color:var(--accent1); letter-spacing:2px; margin-bottom:0.4rem; }
+.tl-ttl { font-family:'Syne',sans-serif; font-weight:800; font-size:1.1rem; color:var(--text-primary); margin-bottom:0.6rem; }
+.tl-desc { color:var(--text-muted); font-size:0.9rem; line-height:1.75; }
+@media(max-width:768px){.about-grid{grid-template-columns:1fr}.info-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-box"><div class="loader-photo-wrap"><div class="loader-photo-ring2" aria-hidden="true"></div><div class="loader-photo-ring" aria-hidden="true"></div><img src="photos/loader.jpg" alt="Kushal Bhandari with his bike" class="loader-photo"></div><div class="loader-name">Kushal <span class="ln-last">Bhandari</span><span class="loader-dot">.</span></div><div class="loader-slogan-wrap"><span class="loader-slogan">Turning Ideas Into Digital Reality</span></div><div class="loader-bar-wrap"><div class="loader-bar"></div></div><div class="loader-sub">Loading profile...</div><div class="ld"><span></span><span></span><span></span></div></div></div>
+<canvas id="particles"></canvas>
+<div class="cursor-dot" id="cDot"></div><div class="cursor-ring" id="cRing"></div>
+<div id="settings-panel" class="settings-panel"><div class="sp-header"><span><i class="fas fa-sliders-h"></i> Settings</span><button onclick="closeSettings()"><i class="fas fa-times"></i></button></div><div class="sp-section"><div class="sp-label">Theme</div><div class="theme-btns"><button class="t-btn active" id="darkBtn" onclick="setTheme('dark')"><i class="fas fa-moon"></i> Dark</button><button class="t-btn" id="lightBtn" onclick="setTheme('light')"><i class="fas fa-sun"></i> Light</button></div></div><div class="sp-section"><div class="sp-label">Accent Color</div><div class="color-picks"><button class="c-pick active" style="--c:#00f5ff" data-color="cyan" onclick="setColor('cyan',this)"></button><button class="c-pick" style="--c:#7b2fff" data-color="purple" onclick="setColor('purple',this)"></button><button class="c-pick" style="--c:#ff006e" data-color="pink" onclick="setColor('pink',this)"></button><button class="c-pick" style="--c:#00e676" data-color="green" onclick="setColor('green',this)"></button><button class="c-pick" style="--c:#ff9100" data-color="orange" onclick="setColor('orange',this)"></button></div></div><div class="sp-section"><div class="sp-label">Font Size</div><div class="zoom-row"><button class="zoom-btn" onclick="changeZoom(-10)"><i class="fas fa-search-minus"></i></button><span id="zoomVal">100%</span><button class="zoom-btn" onclick="changeZoom(10)"><i class="fas fa-search-plus"></i></button></div></div></div>
+<div id="settings-overlay" class="sp-overlay" onclick="closeSettings()"></div>
+<nav id="nav"><div class="nav-inner"><a class="nav-logo" href="index.html"><span class="logo-k">Kushal</span><span class="logo-dot">.</span><span class="logo-slogan">IT Developer &amp; Designer</span></a><ul class="nav-links" id="navL"><li><a href="index.html">Home</a></li><li><a href="about.html" class="active">About</a></li><li><a href="family.html">Family</a></li><li><a href="skills.html">Skills</a></li><li><a href="projects.html">Projects</a></li><li><a href="services.html">Services</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="quiz.html">Quiz</a></li><li><a href="fun.html">Fun Zone</a></li><li><a href="cv.html">CV</a></li><li><a href="contact.html">Contact</a></li></ul><div class="nav-actions"><div class="nav-auth"><a href="login.html" class="nav-auth-btn nav-auth-login">Login</a><a href="signup.html" class="nav-auth-btn nav-auth-signup">Sign Up</a></div><button class="nav-icon-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button><button class="hamburger" id="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div></nav>
+<div class="marquee-wrap"><div class="marquee-track" id="marqueeTrack"></div></div>
+<main>
+<div class="page-hero"><div class="page-hero-inner"><div class="page-hero-tag">// About Me</div><h1 class="page-hero-title">The Person Behind <em>the Code</em></h1><p class="page-hero-desc">A curious mind from the hills of Gulmi, Nepal — learning, building, and growing every day.</p><div class="page-hero-line"></div></div></div>
+<section class="about-section">
+  <div class="about-grid">
+    <div class="about-img-col reveal">
+      <img class="about-main-img" src="photos/img4.jpg" alt="Kushal Bhandari">
+      <div class="img-badge"><div class="b-val">4+</div><div class="b-label">Years in IT</div></div>
+    </div>
+    <div class="about-text">
+      <span class="sec-tag reveal">// Who I Am</span>
+      <h2 class="sec-title reveal">I'm <em>Kushal Bhandari</em></h2>
+      <p class="about-p reveal">A driven IT graduate from Gulmi, Nepal, now pursuing a Bachelor's degree in Computer Engineering overseas. My journey with technology began in Class 9 when I first enrolled in the IT stream — and since then, I haven't looked back.</p>
+      <p class="about-p reveal">From designing festive posters to building full hotel management websites, studying cybersecurity to developing Android apps in Java — I've explored a wide spectrum of IT disciplines. I believe in learning by doing, and every project has taught me something new.</p>
+      <p class="about-p reveal">Having completed advanced networking and software development studies in Class 12 with a GPA of 3.65, I built the School Management System as both a desktop and web application. I'm now continuing that journey abroad as a Computer Engineering student, always looking for new challenges and real-world problems to solve with technology.</p>
+      <div class="info-grid">
+        <div class="info-box reveal"><div class="ib-label">📛 Full Name</div><div class="ib-val">Kushal Bhandari</div></div>
+        <div class="info-box reveal"><div class="ib-label">📍 Address</div><div class="ib-val">Satyawati 6, Johang Khaireni, Gulmi</div></div>
+        <div class="info-box reveal"><div class="ib-label">📞 Phone</div><div class="ib-val">9769309214</div></div>
+        <div class="info-box reveal"><div class="ib-label">📧 Email</div><div class="ib-val">bhandarikushal290@gmail.com</div></div>
+        <div class="info-box reveal"><div class="ib-label">🎓 Education</div><div class="ib-val">+2 Passed (GPA 3.65) · Computer Engineering (Overseas)</div></div>
+        <div class="info-box reveal"><div class="ib-label">🌐 Nationality</div><div class="ib-val">Nepali 🇳🇵</div></div>
+      </div>
+      <a href="contact.html" class="btn btn-fill reveal"><i class="fas fa-paper-plane"></i> Get In Touch</a>
+    </div>
+  </div>
+</section>
+<section class="hobbies-section"><div class="hob-inner">
+  <div class="reveal"><div class="sec-tag">// Beyond The Screen</div><h2 class="sec-title">Hobbies &amp; <em>Interests</em></h2><div class="sec-line"></div></div>
+  <div class="hob-grid">
+    <div class="hob-card reveal"><div class="hob-icon">🏏</div><div class="hob-name">Cricket</div></div>
+    <div class="hob-card reveal"><div class="hob-icon">🏐</div><div class="hob-name">Volleyball</div></div>
+    <div class="hob-card reveal"><div class="hob-icon">🎬</div><div class="hob-name">Watching Movies</div></div>
+    <div class="hob-card reveal"><div class="hob-icon">✈️</div><div class="hob-name">Travelling</div></div>
+    <div class="hob-card reveal"><div class="hob-icon">🏍️</div><div class="hob-name">Riding</div></div>
+  </div>
+  <div class="hob-strip">
+    <div class="hob-strip-item reveal"><img src="photos/img1.jpg" alt="Kushal riding his bike"></div>
+    <div class="hob-strip-item reveal"><img src="photos/img2.jpg" alt="Kushal with his bike"></div>
+    <div class="hob-strip-item reveal"><img src="photos/img5.jpg" alt="Kushal travelling at Phewa Lake, Pokhara"></div>
+  </div>
+</div></section>
+<section class="fav-section"><div class="fav-inner">
+  <div class="reveal"><div class="sec-tag">// Personal Favorites</div><h2 class="sec-title">A Few Of My <em>Favorites</em></h2><div class="sec-line"></div></div>
+  <div class="fav-grid">
+    <div class="fav-card reveal"><div class="fav-icon">🎬</div><div class="fav-label">Favorite Heroes</div><div class="fav-val">Naveen Kumar Gowda (Yash) &amp; Saugat Malla</div></div>
+    <div class="fav-card reveal"><div class="fav-icon">🎤</div><div class="fav-label">Favorite Singer</div><div class="fav-val">Yabesh Thapa</div></div>
+    <div class="fav-card reveal"><div class="fav-icon">⚫</div><div class="fav-label">Favorite Color</div><div class="fav-val">Black</div></div>
+    <div class="fav-card reveal"><div class="fav-icon">🏔️</div><div class="fav-label">Favorite Places</div><div class="fav-val">Mustang &amp; Pokhara</div></div>
+    <div class="fav-card reveal"><div class="fav-icon">🍛</div><div class="fav-label">Favorite Food</div><div class="fav-val">Nepali Khana</div></div>
+  </div>
+</div></section>
+<section class="timeline-section">
+  <div class="tl-wrap">
+    <div class="tl-section-intro reveal"><div class="sec-tag">// My Journey</div><h2 class="sec-title">IT <em>Timeline</em></h2><div class="sec-line"></div></div>
+    <div class="timeline">
+      <div class="tl-item reveal"><div class="tl-dot"></div><div class="tl-yr">2079 BS</div><div class="tl-ttl">🚀 Joined IT Stream — Class 9</div><div class="tl-desc">Started the IT journey with graphic design. Created festive digital posters for Holi and Dashain — learning color theory, composition, and design tools.</div></div>
+      <div class="tl-item reveal"><div class="tl-dot" style="background:var(--accent2);box-shadow:0 0 12px var(--accent2)"></div><div class="tl-yr">2080 BS</div><div class="tl-ttl">🌐 Web Development — Class 10</div><div class="tl-desc">Built a full hotel management website with room booking, customer management, and a billing system. Strengthened HTML, CSS, JavaScript, and database skills.</div></div>
+      <div class="tl-item reveal"><div class="tl-dot" style="background:var(--accent3);box-shadow:0 0 12px var(--accent3)"></div><div class="tl-yr">2080 BS</div><div class="tl-ttl">🏫 SEE Passed — GPA 3.41</div><div class="tl-desc">Successfully completed the Secondary Education Examination (SEE) with a GPA of 3.41 from Shree Saraswati Secondary School, Satyawati 7 Johang, Gulmi.</div></div>
+      <div class="tl-item reveal"><div class="tl-dot" style="background:var(--accent1);box-shadow:0 0 12px var(--accent1)"></div><div class="tl-yr">2081 BS</div><div class="tl-ttl">🔐 Cybersecurity & Java Apps — Class 11</div><div class="tl-desc">Studied social engineering tools and performed educational phishing demonstrations. Built a calculator app and a full Android mobile app using Java programming.</div></div>
+      <div class="tl-item reveal"><div class="tl-dot" style="background:var(--accent2);box-shadow:0 0 12px var(--accent2)"></div><div class="tl-yr">2082 BS</div><div class="tl-ttl">🖧 Networking &amp; Software — Class 12</div><div class="tl-desc">Completed advanced networking concepts — LAN/WAN, routing, switching — alongside software development. Built the School Management System as both a desktop and web application.</div></div>
+      <div class="tl-item reveal"><div class="tl-dot" style="background:var(--accent3);box-shadow:0 0 12px var(--accent3)"></div><div class="tl-yr">2082 BS</div><div class="tl-ttl">🎓 Passed Class 12 — GPA 3.65</div><div class="tl-desc">Successfully completed the +2 (Class 12) IT stream with a GPA of 3.65.</div></div>
+      <div class="tl-item reveal"><div class="tl-dot" style="background:var(--accent1);box-shadow:0 0 12px var(--accent1)"></div><div class="tl-yr">2082 BS — Present</div><div class="tl-ttl">✈️ Computer Engineering — Overseas</div><div class="tl-desc">Moved abroad to pursue a Bachelor's degree in Computer Engineering, building further on a strong IT foundation from Nepal.</div></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer id="footer"></footer>
+<div id="chatbot-root"></div>
+<script src="auth.js"></script>
+<script src="shared.js"></script>
+</body></html>

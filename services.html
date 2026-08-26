@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services | Kushal Bhandari</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="shared.css">
+<style>
+.svc-section{padding:5rem 2rem;}
+.svc-inner{max-width:1100px;margin:0 auto;}
+.svc-full-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;margin-top:3rem;}
+.svc-full-card{background:var(--card-bg);border:1.5px solid var(--border);border-radius:22px;padding:2.5rem;transition:all 0.35s;position:relative;overflow:hidden;}
+.svc-full-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent1),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
+.svc-full-card:hover{border-color:var(--accent1);transform:translateY(-7px);box-shadow:0 25px 60px var(--accent1-glow);}
+.svc-full-card:hover::before{transform:scaleX(1);}
+.svc-big-icon{font-size:3rem;margin-bottom:1.2rem;}
+.svc-card-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--text-primary);margin-bottom:0.7rem;}
+.svc-card-desc{font-size:0.9rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.2rem;}
+.svc-features{list-style:none;display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.5rem;}
+.svc-features li{font-size:0.85rem;color:var(--text-muted);display:flex;align-items:center;gap:0.5rem;}
+.svc-features li::before{content:'✓';color:var(--accent1);font-weight:700;font-size:0.8rem;}
+.svc-cta-link{display:inline-flex;align-items:center;gap:0.4rem;font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--accent1);text-decoration:none;border:1px solid var(--accent1);padding:0.4rem 0.9rem;border-radius:8px;transition:all 0.3s;}
+.svc-cta-link:hover{background:var(--accent1-bg);}
+.process-section{background:var(--alt-bg);border-top:1px solid var(--border);padding:5rem 2rem;}
+.process-inner{max-width:900px;margin:0 auto;}
+.process-steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.5rem;margin-top:3rem;}
+.proc-step{background:var(--card-bg);border:1.5px solid var(--border);border-radius:18px;padding:1.8rem;text-align:center;position:relative;}
+.proc-num{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;background:linear-gradient(135deg,var(--accent1),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:0.8rem;}
+.proc-title{font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--text-primary);margin-bottom:0.5rem;}
+.proc-desc{font-size:0.82rem;color:var(--text-muted);line-height:1.65;}
+</style>
+</head>
+<body>
+<div id="loader"><div class="loader-box"><div class="loader-photo-wrap"><div class="loader-photo-ring2" aria-hidden="true"></div><div class="loader-photo-ring" aria-hidden="true"></div><img src="photos/loader.jpg" alt="Kushal Bhandari with his bike" class="loader-photo"></div><div class="loader-name">Kushal <span class="ln-last">Bhandari</span><span class="loader-dot">.</span></div><div class="loader-slogan-wrap"><span class="loader-slogan">Turning Ideas Into Digital Reality</span></div><div class="loader-bar-wrap"><div class="loader-bar"></div></div><div class="loader-sub">Loading services...</div><div class="ld"><span></span><span></span><span></span></div></div></div>
+<canvas id="particles"></canvas><div class="cursor-dot" id="cDot"></div><div class="cursor-ring" id="cRing"></div>
+<div id="settings-panel" class="settings-panel"><div class="sp-header"><span><i class="fas fa-sliders-h"></i> Settings</span><button onclick="closeSettings()"><i class="fas fa-times"></i></button></div><div class="sp-section"><div class="sp-label">Theme</div><div class="theme-btns"><button class="t-btn active" id="darkBtn" onclick="setTheme('dark')"><i class="fas fa-moon"></i> Dark</button><button class="t-btn" id="lightBtn" onclick="setTheme('light')"><i class="fas fa-sun"></i> Light</button></div></div><div class="sp-section"><div class="sp-label">Accent Color</div><div class="color-picks"><button class="c-pick active" style="--c:#00f5ff" data-color="cyan" onclick="setColor('cyan',this)"></button><button class="c-pick" style="--c:#7b2fff" data-color="purple" onclick="setColor('purple',this)"></button><button class="c-pick" style="--c:#ff006e" data-color="pink" onclick="setColor('pink',this)"></button><button class="c-pick" style="--c:#00e676" data-color="green" onclick="setColor('green',this)"></button><button class="c-pick" style="--c:#ff9100" data-color="orange" onclick="setColor('orange',this)"></button></div></div><div class="sp-section"><div class="sp-label">Font Size</div><div class="zoom-row"><button class="zoom-btn" onclick="changeZoom(-10)"><i class="fas fa-search-minus"></i></button><span id="zoomVal">100%</span><button class="zoom-btn" onclick="changeZoom(10)"><i class="fas fa-search-plus"></i></button></div></div></div>
+<div id="settings-overlay" class="sp-overlay" onclick="closeSettings()"></div>
+<nav id="nav"><div class="nav-inner"><a class="nav-logo" href="index.html"><span class="logo-k">Kushal</span><span class="logo-dot">.</span><span class="logo-slogan">IT Developer &amp; Designer</span></a><ul class="nav-links" id="navL"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="family.html">Family</a></li><li><a href="skills.html">Skills</a></li><li><a href="projects.html">Projects</a></li><li><a href="services.html" class="active">Services</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="quiz.html">Quiz</a></li><li><a href="fun.html">Fun Zone</a></li><li><a href="cv.html">CV</a></li><li><a href="contact.html">Contact</a></li></ul><div class="nav-actions"><div class="nav-auth"><a href="login.html" class="nav-auth-btn nav-auth-login">Login</a><a href="signup.html" class="nav-auth-btn nav-auth-signup">Sign Up</a></div><button class="nav-icon-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button><button class="hamburger" id="ham" onclick="toggleNav()"><span></span><span></span><span></span></button></div></div></nav>
+<div class="marquee-wrap"><div class="marquee-track" id="marqueeTrack"></div></div>
+<main>
+<div class="page-hero"><div class="page-hero-inner"><div class="page-hero-tag">// IT Services</div><h1 class="page-hero-title">What I Can <em>Do For You</em></h1><p class="page-hero-desc">Professional IT services from a passionate developer. Let's build something great together.</p><div class="page-hero-line"></div></div></div>
+<section class="svc-section"><div class="svc-inner">
+  <div class="reveal"><div class="sec-tag">// Services</div><h2 class="sec-title">Available <em>Services</em></h2><div class="sec-line"></div></div>
+  <div class="svc-full-grid">
+    <div class="svc-full-card reveal"><div class="svc-big-icon">🌐</div><div class="svc-card-title">Web Development</div><div class="svc-card-desc">Custom, responsive websites and web applications built with modern technologies — from simple landing pages to full management systems.</div><ul class="svc-features"><li>Responsive HTML/CSS/JS websites</li><li>Admin dashboards & management systems</li><li>Database-connected web apps</li><li>UI/UX focused design</li><li>SEO-friendly structure</li></ul><a class="svc-cta-link" href="contact.html">Get a Quote →</a></div>
+    <div class="svc-full-card reveal"><div class="svc-big-icon">🎨</div><div class="svc-card-title">Graphic Design</div><div class="svc-card-desc">Eye-catching visual content for digital and print — posters, banners, logos, and social media graphics that communicate your message.</div><ul class="svc-features"><li>Festival & event digital posters</li><li>Social media graphics & banners</li><li>Logo and brand identity design</li><li>Print-ready design files</li><li>Custom typography designs</li></ul><a class="svc-cta-link" href="contact.html">Get a Quote →</a></div>
+    <div class="svc-full-card reveal"><div class="svc-big-icon">🔐</div><div class="svc-card-title">Cybersecurity Consulting</div><div class="svc-card-desc">Security awareness training, phishing simulation for education, and basic security audit services to help protect your digital assets.</div><ul class="svc-features"><li>Security awareness workshops</li><li>Phishing simulation training</li><li>Social engineering awareness</li><li>Basic vulnerability assessment</li><li>Security documentation</li></ul><a class="svc-cta-link" href="contact.html">Get a Quote →</a></div>
+    <div class="svc-full-card reveal"><div class="svc-big-icon">📱</div><div class="svc-card-title">Android App Development</div><div class="svc-card-desc">Native Android mobile applications built with Java — focused on performance, clean UI, and practical functionality for your business or idea.</div><ul class="svc-features"><li>Custom Android applications</li><li>Java-based development</li><li>Clean & intuitive UI design</li><li>Database integration</li><li>APK delivery & testing</li></ul><a class="svc-cta-link" href="contact.html">Get a Quote →</a></div>
+    <div class="svc-full-card reveal"><div class="svc-big-icon">🖧</div><div class="svc-card-title">Network Setup & IT Support</div><div class="svc-card-desc">LAN/WAN network configuration, hardware setup, troubleshooting, and general IT support for homes, schools, and small businesses.</div><ul class="svc-features"><li>LAN/WAN network configuration</li><li>Router & switch setup</li><li>Network troubleshooting</li><li>Hardware assembly & configuration</li><li>IT helpdesk & support</li></ul><a class="svc-cta-link" href="contact.html">Get a Quote →</a></div>
+    <div class="svc-full-card reveal"><div class="svc-big-icon">🗄️</div><div class="svc-card-title">Database Solutions</div><div class="svc-card-desc">Database design, SQL management, and data-driven backend systems to power your applications with reliable, structured data storage.</div><ul class="svc-features"><li>Database design & architecture</li><li>SQL query writing & optimization</li><li>Data entry & management</li><li>Database integration with web apps</li><li>Data backup strategies</li></ul><a class="svc-cta-link" href="contact.html">Get a Quote →</a></div>
+  </div>
+</div></section>
+<section class="process-section"><div class="process-inner">
+  <div class="reveal"><div class="sec-tag">// How I Work</div><h2 class="sec-title">My <em>Process</em></h2><div class="sec-line"></div></div>
+  <div class="process-steps">
+    <div class="proc-step reveal"><div class="proc-num">01</div><div class="proc-title">Discuss</div><div class="proc-desc">We talk about your needs, goals and project requirements over email or call.</div></div>
+    <div class="proc-step reveal"><div class="proc-num">02</div><div class="proc-title">Plan</div><div class="proc-desc">I create a clear plan, timeline, and scope for what will be delivered.</div></div>
+    <div class="proc-step reveal"><div class="proc-num">03</div><div class="proc-title">Build</div><div class="proc-desc">I design and develop your project with regular progress updates.</div></div>
+    <div class="proc-step reveal"><div class="proc-num">04</div><div class="proc-title">Deliver</div><div class="proc-desc">Final delivery, testing, and after-support to make sure everything works perfectly.</div></div>
+  </div>
+  <div style="text-align:center;margin-top:3rem"><a href="contact.html" class="btn btn-fill reveal"><i class="fas fa-rocket"></i> Start a Project</a></div>
+</div></section>
+</main>
+<footer id="footer"></footer><div id="chatbot-root"></div>
+<script src="auth.js"></script>
+<script src="shared.js"></script>
+</body></html>
